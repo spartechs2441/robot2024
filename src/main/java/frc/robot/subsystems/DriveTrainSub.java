@@ -1,23 +1,18 @@
  package frc.robot.subsystems;
 
+ import com.revrobotics.CANSparkLowLevel;
  import com.revrobotics.CANSparkMax;
- import com.revrobotics.CANSparkMaxLowLevel.MotorType;
  import com.revrobotics.RelativeEncoder;
- import com.revrobotics.SparkMaxRelativeEncoder.Type;
+ import com.revrobotics.SparkRelativeEncoder;
+ import edu.wpi.first.math.geometry.Translation2d;
  import edu.wpi.first.wpilibj.drive.MecanumDrive;
  import edu.wpi.first.wpilibj2.command.SubsystemBase;
  import frc.robot.Constants;
- import frc.robot.StrafeDirection;
- import frc.robot.shuffleboard.CANSparkMaxMotorManager;
+ import frc.robot.utils.StrafeDirection;
  import frc.robot.utils.CustomaryLength;
  import frc.robot.utils.CustomaryLengthUnit;
 
  public class DriveTrainSub extends SubsystemBase {
-
-     private final CANSparkMax frontRight;
-     private final CANSparkMax backRight;
-     private final CANSparkMax frontLeft;
-     private final CANSparkMax backLeft;
 
      //encoders for drive
      private final RelativeEncoder frontRightEncoder;
@@ -28,35 +23,24 @@
 
      public DriveTrainSub() {
 
-         CANSparkMaxMotorManager motorManager = CANSparkMaxMotorManager.getInstance();
-
-         frontRight = motorManager.retrieveMotor(Constants.frontRightDrive, MotorType.kBrushless);
-         frontRight.setInverted(true);
-
-         backRight = motorManager.retrieveMotor(Constants.backRightDrive, MotorType.kBrushless);
-         backRight.setInverted(true);
-
-         frontLeft = motorManager.retrieveMotor(Constants.frontLeftDrive, MotorType.kBrushless);
-         backLeft = motorManager.retrieveMotor(Constants.backLeftDrive, MotorType.kBrushless);
-
-         // frontRight = new CANSparkMax(Constants.frontRightDrive, MotorType.kBrushless);
-         // frontRight.setInverted(true);
-         // backRight = new CANSparkMax(Constants.backRightDrive, MotorType.kBrushless);
-         // backRight.setInverted(true);
-         // frontLeft = new CANSparkMax(Constants.frontLeftDrive, MotorType.kBrushless);
-         // backLeft = new CANSparkMax(Constants.backLeftDrive, MotorType.kBrushless);
+         CANSparkMax frontRight = new CANSparkMax(Constants.frontRightDrive, CANSparkLowLevel.MotorType.kBrushless);
+          frontRight.setInverted(true);
+         CANSparkMax backRight = new CANSparkMax(Constants.backRightDrive, CANSparkLowLevel.MotorType.kBrushless);
+          backRight.setInverted(true);
+         CANSparkMax frontLeft = new CANSparkMax(Constants.frontLeftDrive, CANSparkLowLevel.MotorType.kBrushless);
+         CANSparkMax backLeft = new CANSparkMax(Constants.backLeftDrive, CANSparkLowLevel.MotorType.kBrushless);
 
          //initializing encoders
-         frontRightEncoder = frontRight.getEncoder(Type.kHallSensor, 42);
+         frontRightEncoder = frontRight.getEncoder(SparkRelativeEncoder.Type.kHallSensor, 42);
          frontRightEncoder.setPositionConversionFactor(1/1.7846595/3.78947369/1.0212766); //1.0169
 
-         backRightEncoder = backRight.getEncoder(Type.kHallSensor, 42);
+         backRightEncoder = backRight.getEncoder(SparkRelativeEncoder.Type.kHallSensor, 42);
          backRightEncoder.setPositionConversionFactor(1/1.8252/3.78947369/1.0212766); //1.04
 
-         frontLeftEncoder = frontLeft.getEncoder(Type.kHallSensor, 42);
+         frontLeftEncoder = frontLeft.getEncoder(SparkRelativeEncoder.Type.kHallSensor, 42);
          frontLeftEncoder.setPositionConversionFactor(1/1.755/3.78947369/1.0212766); //1
 
-         backLeftEncoder = backLeft.getEncoder(Type.kHallSensor, 42);
+         backLeftEncoder = backLeft.getEncoder(SparkRelativeEncoder.Type.kHallSensor, 42);
          backLeftEncoder.setPositionConversionFactor(1/1.70235/3.78947369/1.0212766); //.97
 
          //initializing the mecanum drive
@@ -97,51 +81,37 @@
          double brake = 1 - getDistance() / feet;
 
          switch (strafeDirection) {
-             case FORWARD: {
+             case FORWARD -> {
                  while (getDistance() < feet) {
-                     turboMecanumDrive(-Constants.autoDrive * brake, 0, 0);
+                     mecanumDrive(Constants.autoDrive * brake, 0, 0);
                  }
-                 break;
              }
-             case LEFT: {
+             case LEFT -> {
                  while (getDistance() < feet) {
-                     turboMecanumDrive(0, -Constants.autoDrive * brake, 0);
+                     mecanumDrive(0, Constants.autoDrive * brake, 0);
                  }
-                 break;
              }
-
-             case RIGHT: {
+             case RIGHT -> {
                  while (getDistance() < feet) {
-                     turboMecanumDrive(0, Constants.autoDrive * brake, 0);
+                     mecanumDrive(0, -Constants.autoDrive * brake, 0);
                  }
-                 break;
              }
-
-             case BACKWARDS: {
+             case BACKWARDS -> {
                  while (getDistance() < feet) {
-                     turboMecanumDrive(Constants.autoDrive * brake, 0, 0);
+                     mecanumDrive(-Constants.autoDrive * brake, 0, 0);
                  }
-                 break;
              }
-
          }
      }
 
-     public void turboMecanumDrive(double ySpeed, double xSpeed, double zRotation) {
+     public void mecanumDrive(double xSpeed, double ySpeed, double zRotation) {
+//         xSpeed
          if(zRotation > .25)
-             mecanumDrive.driveCartesian(-ySpeed / 1.4, xSpeed, (zRotation-.25)/1.3);
+             mecanumDrive.driveCartesian(xSpeed, ySpeed, (zRotation-.25)/1.3);
          else if(zRotation < -.25)
-             mecanumDrive.driveCartesian(-ySpeed / 1.4, xSpeed, (zRotation+.25)/1.3);
+             mecanumDrive.driveCartesian(xSpeed, ySpeed, (zRotation+.25)/1.3);
          else{
-             mecanumDrive.driveCartesian(-ySpeed / 1.4, xSpeed, 0);
+             mecanumDrive.driveCartesian(xSpeed, ySpeed, 0);
          }
-     }
-     public void mecanumDrive(double ySpeed, double xSpeed, double zRotation) {
-         if(zRotation > .25)
-             mecanumDrive.driveCartesian(-ySpeed / 2, xSpeed/2, (zRotation-.25)/2);
-         else if(zRotation < -.25)
-             mecanumDrive.driveCartesian(-ySpeed / 2, xSpeed/2, (zRotation+.25)/2);
-         else
-             mecanumDrive.driveCartesian(-ySpeed / 2, xSpeed/2, 0);
      }
  }

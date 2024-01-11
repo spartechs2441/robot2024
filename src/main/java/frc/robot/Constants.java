@@ -15,8 +15,20 @@ package frc.robot;
  */
 public final class Constants
 {
+    //the number is the CAN ID that the spark max is attached to :)
+    //Drive IDs
+    public static int backLeftDrive = 1;
+    public static int frontLeftDrive = 4;
+    public static int frontRightDrive = 2;
+    public static int backRightDrive = 3;
+
+    //drive SPEED -1.0 to 1.0
+    public static double autoDrive = .6;
+
     public static class OperatorConstants
     {
         public static final int DRIVER_CONTROLLER_PORT = 0;
+
+
     }
 }
