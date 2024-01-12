@@ -13,8 +13,7 @@ package frc.robot;
  * <p>It is advised to statically import this class (or one of its inner classes) wherever the
  * constants are needed, to reduce verbosity.
  */
-public final class Constants
-{
+public final class Constants {
     //the number is the CAN ID that the spark max is attached to :)
     //Drive IDs
     public static int backLeftDrive = 1;
@@ -25,8 +24,7 @@ public final class Constants
     //drive SPEED -1.0 to 1.0
     public static double autoDrive = .6;
 
-    public static class OperatorConstants
-    {
+    public static class OperatorConstants {
         public static final int DRIVER_CONTROLLER_PORT = 0;
 
 
