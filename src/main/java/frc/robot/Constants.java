@@ -22,6 +22,10 @@ public final class Constants {
         public static final int FRONT_LEFT_DRIVE = 4;
         public static final int FRONT_RIGHT_DRIVE = 2;
         public static final int BACK_RIGHT_DRIVE = 3;
+
+        // robot has not been built so change these later
+        public static final int INTAKE = -1;
+        public static final int INTAKE_HINGE = -1;
     }
 
     /**

@@ -4,6 +4,7 @@ import com.revrobotics.CANSparkLowLevel;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkRelativeEncoder;
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -28,6 +29,8 @@ public class DriveTrainSub extends SubsystemBase {
         backRight.setInverted(true);
         CANSparkMax frontLeft = new CANSparkMax(Constants.Port.FRONT_LEFT_DRIVE, CANSparkLowLevel.MotorType.kBrushless);
         CANSparkMax backLeft = new CANSparkMax(Constants.Port.BACK_LEFT_DRIVE, CANSparkLowLevel.MotorType.kBrushless);
+/*
+*/
 
         //initializing encoders
         frontRightEncoder = frontRight.getEncoder(SparkRelativeEncoder.Type.kHallSensor, 42);
@@ -80,54 +83,38 @@ public class DriveTrainSub extends SubsystemBase {
     /**
      * Drives a certain distance
      * Should be used in autonomous for precise movement
-     * @param length distance to drive
+     *
+     * @param length          distance to drive
      * @param strafeDirection direction to drive
      * @apiNote Gradually increases break as you get closer to your destination so the robot stops exactly where you need it do
      */
-    public void autoDrive(CustomaryLength length, StrafeDirection strafeDirection) {
-        double feet = length.get(CustomaryLengthUnit.FEET);
-        double brake = 1 - getDistance() / feet;
+    public void autoDrive(final CustomaryLength length, final StrafeDirection strafeDirection) {
+        final double feet = length.get(CustomaryLengthUnit.FEET);
+        double brake;
 
-        switch (strafeDirection) {
-            case FORWARD -> {
-                while (getDistance() < feet) {
-                    mecanumDrive(Constants.Speed.AUTO * brake, 0, 0);
-                }
-            }
-            case LEFT -> {
-                while (getDistance() < feet) {
-                    mecanumDrive(0, Constants.Speed.AUTO * brake, 0);
-                }
-            }
-            case RIGHT -> {
-                while (getDistance() < feet) {
-                    mecanumDrive(0, -Constants.Speed.AUTO * brake, 0);
-                }
-            }
-            case BACKWARDS -> {
-                while (getDistance() < feet) {
-                    mecanumDrive(-Constants.Speed.AUTO * brake, 0, 0);
-                }
+        while (getDistance() < feet) {
+            brake = 1 - getDistance() / feet;
+            switch (strafeDirection) {
+                case FORWARD -> mecanumDrive.driveCartesian(Constants.Speed.AUTO * brake, 0, 0);
+                case LEFT -> mecanumDrive.driveCartesian(0, Constants.Speed.AUTO * brake, 0);
+                case RIGHT -> mecanumDrive.driveCartesian(0, -Constants.Speed.AUTO * brake, 0);
+                case BACKWARDS -> mecanumDrive.driveCartesian(-Constants.Speed.AUTO * brake, 0, 0);
             }
         }
     }
 
     /**
      * Wrapper method for driveCartesian
+     * Applies multiplier and deadband so be careful when using in autonomous
      * For documentation, go to see also
+     *
      * @see MecanumDrive#driveCartesian(double, double, double)
      */
     public void mecanumDrive(double xSpeed, double ySpeed, double zRotation) {
         xSpeed *= Constants.Speed.TELEOP;
         ySpeed *= Constants.Speed.TELEOP;
-        zRotation *= Constants.Speed.TELEOP_ROTATION;
+        zRotation = MathUtil.applyDeadband(zRotation * Constants.Speed.TELEOP_ROTATION, 0.4);
 
-        if (zRotation > .25)
-            mecanumDrive.driveCartesian(xSpeed, ySpeed, (zRotation - .25) / 1.3);
-        else if (zRotation < -.25)
-            mecanumDrive.driveCartesian(xSpeed, ySpeed, (zRotation + .25) / 1.3);
-        else {
-            mecanumDrive.driveCartesian(xSpeed, ySpeed, 0);
-        }
+        mecanumDrive.driveCartesian(xSpeed, ySpeed, zRotation);
     }
 }

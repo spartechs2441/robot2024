@@ -5,12 +5,15 @@
 
 package frc.robot;
 
+import com.revrobotics.CANSparkLowLevel;
+import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.DriveJoystickCartesian;
 import frc.robot.subsystems.DriveTrainSub;
+import frc.robot.subsystems.IntakeSub;
 
 
 /**
@@ -22,6 +25,7 @@ import frc.robot.subsystems.DriveTrainSub;
 public class RobotContainer {
     // The robot's subsystems and commands are defined here...
     private final DriveTrainSub driveSub;
+    private final IntakeSub intakeSub;
     //    Joystick flightStickControl = new Joystick(1);
     Joystick flightStickDrive = new Joystick(0);
 
@@ -31,7 +35,9 @@ public class RobotContainer {
      */
     public RobotContainer() {
         configureBindings();
+
         driveSub = new DriveTrainSub();
+        intakeSub = new IntakeSub();
     }
 
 
