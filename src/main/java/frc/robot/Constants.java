@@ -26,6 +26,8 @@ public final class Constants {
         // robot has not been built so change these later
         public static final int INTAKE = -1;
         public static final int INTAKE_HINGE = -1;
+        public static final int SHOOTER = -1;
+        public static final int CONVEYOR = -1;
     }
 
     /**
@@ -36,7 +38,9 @@ public final class Constants {
         public static final double AUTO = .6;
         public static final double TELEOP = 1;
         public static final double TELEOP_ROTATION = 1;
-    }
+        public static final double SHOOTER = 5;
+        public static final double CONVEYOR = 1.5;
+   }
 
     public static class OperatorConstants {
         public static final int DRIVER_CONTROLLER_PORT = 0;
