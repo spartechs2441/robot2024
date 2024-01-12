@@ -22,12 +22,12 @@ public class DriveTrainSub extends SubsystemBase {
 
     public DriveTrainSub() {
 
-        CANSparkMax frontRight = new CANSparkMax(Constants.frontRightDrive, CANSparkLowLevel.MotorType.kBrushless);
+        CANSparkMax frontRight = new CANSparkMax(Constants.Port.FRONT_RIGHT_DRIVE, CANSparkLowLevel.MotorType.kBrushless);
         frontRight.setInverted(true);
-        CANSparkMax backRight = new CANSparkMax(Constants.backRightDrive, CANSparkLowLevel.MotorType.kBrushless);
+        CANSparkMax backRight = new CANSparkMax(Constants.Port.BACK_RIGHT_DRIVE, CANSparkLowLevel.MotorType.kBrushless);
         backRight.setInverted(true);
-        CANSparkMax frontLeft = new CANSparkMax(Constants.frontLeftDrive, CANSparkLowLevel.MotorType.kBrushless);
-        CANSparkMax backLeft = new CANSparkMax(Constants.backLeftDrive, CANSparkLowLevel.MotorType.kBrushless);
+        CANSparkMax frontLeft = new CANSparkMax(Constants.Port.FRONT_LEFT_DRIVE, CANSparkLowLevel.MotorType.kBrushless);
+        CANSparkMax backLeft = new CANSparkMax(Constants.Port.BACK_LEFT_DRIVE, CANSparkLowLevel.MotorType.kBrushless);
 
         //initializing encoders
         frontRightEncoder = frontRight.getEncoder(SparkRelativeEncoder.Type.kHallSensor, 42);
@@ -53,15 +53,19 @@ public class DriveTrainSub extends SubsystemBase {
         backLeftEncoder.setPosition(0);
     }
 
-    //resets the encoders to 0
-    public void resetEncoder() {
+    /**
+     * Resets the encoders to zero
+     */
+    public void resetEncoders() {
         frontRightEncoder.setPosition(0);
         frontLeftEncoder.setPosition(0);
         backRightEncoder.setPosition(0);
         backLeftEncoder.setPosition(0);
     }
 
-    //tells the distance of how far you've traveled
+    /**
+     * Gets the distance of how far the robot has traveled
+     */
     public double getDistance() {
         return Math.abs(
                 (
@@ -73,8 +77,13 @@ public class DriveTrainSub extends SubsystemBase {
         );
     }
 
-    //command for autodrive
-    //also gradually increases break as you get closer to your destination so the robot stops exactly where you need it do
+    /**
+     * Drives a certain distance
+     * Should be used in autonomous for precise movement
+     * @param length distance to drive
+     * @param strafeDirection direction to drive
+     * @apiNote Gradually increases break as you get closer to your destination so the robot stops exactly where you need it do
+     */
     public void autoDrive(CustomaryLength length, StrafeDirection strafeDirection) {
         double feet = length.get(CustomaryLengthUnit.FEET);
         double brake = 1 - getDistance() / feet;
@@ -82,29 +91,37 @@ public class DriveTrainSub extends SubsystemBase {
         switch (strafeDirection) {
             case FORWARD -> {
                 while (getDistance() < feet) {
-                    mecanumDrive(Constants.autoDrive * brake, 0, 0);
+                    mecanumDrive(Constants.Speed.AUTO * brake, 0, 0);
                 }
             }
             case LEFT -> {
                 while (getDistance() < feet) {
-                    mecanumDrive(0, Constants.autoDrive * brake, 0);
+                    mecanumDrive(0, Constants.Speed.AUTO * brake, 0);
                 }
             }
             case RIGHT -> {
                 while (getDistance() < feet) {
-                    mecanumDrive(0, -Constants.autoDrive * brake, 0);
+                    mecanumDrive(0, -Constants.Speed.AUTO * brake, 0);
                 }
             }
             case BACKWARDS -> {
                 while (getDistance() < feet) {
-                    mecanumDrive(-Constants.autoDrive * brake, 0, 0);
+                    mecanumDrive(-Constants.Speed.AUTO * brake, 0, 0);
                 }
             }
         }
     }
 
+    /**
+     * Wrapper method for driveCartesian
+     * For documentation, go to see also
+     * @see MecanumDrive#driveCartesian(double, double, double)
+     */
     public void mecanumDrive(double xSpeed, double ySpeed, double zRotation) {
-//         xSpeed
+        xSpeed *= Constants.Speed.TELEOP;
+        ySpeed *= Constants.Speed.TELEOP;
+        zRotation *= Constants.Speed.TELEOP_ROTATION;
+
         if (zRotation > .25)
             mecanumDrive.driveCartesian(xSpeed, ySpeed, (zRotation - .25) / 1.3);
         else if (zRotation < -.25)

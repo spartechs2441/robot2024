@@ -9,15 +9,13 @@ public class DriveJoystickCartesian extends Command {
 
     private final DriveTrainSub drive;
     private final Joystick joystick;
-    JoystickButton butt11;
 
     public DriveJoystickCartesian(
             DriveTrainSub subsystem,
             Joystick joystick
     ) {
         this.joystick = joystick;
-        drive = subsystem;
-        butt11 = new JoystickButton(joystick, 11);
+        this.drive = subsystem;
         addRequirements(drive);
     }
 

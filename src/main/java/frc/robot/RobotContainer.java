@@ -21,7 +21,7 @@ import frc.robot.subsystems.DriveTrainSub;
  */
 public class RobotContainer {
     // The robot's subsystems and commands are defined here...
-    private final DriveTrainSub driveSub = new DriveTrainSub();
+    private final DriveTrainSub driveSub;
     //    Joystick flightStickControl = new Joystick(1);
     Joystick flightStickDrive = new Joystick(0);
 
@@ -30,8 +30,8 @@ public class RobotContainer {
      * The container for the robot. Contains subsystems, OI devices, and commands.
      */
     public RobotContainer() {
-        // Configure the trigger bindings
         configureBindings();
+        driveSub = new DriveTrainSub();
     }
 
 

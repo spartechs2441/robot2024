@@ -14,19 +14,27 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    //the number is the CAN ID that the spark max is attached to :)
-    //Drive IDs
-    public static int backLeftDrive = 1;
-    public static int frontLeftDrive = 4;
-    public static int frontRightDrive = 2;
-    public static int backRightDrive = 3;
+    /**
+     * Shows the CAN IDs of all the motors
+     */
+    public static class Port {
+        public static final int BACK_LEFT_DRIVE = 1;
+        public static final int FRONT_LEFT_DRIVE = 4;
+        public static final int FRONT_RIGHT_DRIVE = 2;
+        public static final int BACK_RIGHT_DRIVE = 3;
+    }
 
-    //drive SPEED -1.0 to 1.0
-    public static double autoDrive = .6;
+    /**
+     * Multiplies the values when driving
+     * To avoid runtime errors, do not set these fields above 1
+     */
+    public static class Speed {
+        public static final double AUTO = .6;
+        public static final double TELEOP = 1;
+        public static final double TELEOP_ROTATION = 1;
+    }
 
     public static class OperatorConstants {
         public static final int DRIVER_CONTROLLER_PORT = 0;
-
-
     }
 }
