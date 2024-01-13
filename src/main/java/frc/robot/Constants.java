@@ -29,6 +29,8 @@ public final class Constants {
         public static final int INTAKE_HINGE = -1;
         public static final int SHOOTER = -1;
         public static final int CONVEYOR = -1;
+        public static final int LEFT_CLIMB = -1;
+        public static final int RIGHT_CLIMB = -1;
     }
 
     /**
@@ -41,6 +43,7 @@ public final class Constants {
         public static final double TELEOP_ROTATION = 1;
         public static final double SHOOTER = 5;
         public static final double CONVEYOR = 1.5;
+        public static final double CLIMB = 1;
    }
 
     /**
