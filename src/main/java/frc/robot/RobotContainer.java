@@ -52,17 +52,6 @@ public class RobotContainer {
      */
     private void configureBindings() {
         driveSub.setDefaultCommand(
-//            new RunCommand(
-//                () -> driveSub.mecanumDrive(
-//                    flightStick.getY(), flightStick.getX(), flightStick.getZ()), driveSub
-//                )
-//            );
-                 /*new DriveCartesian(
-                         driveSub,
-                         flightStick.getRawAxis(1), //y speed - forwards & backwards
-                         flightStick.getRawAxis(0), //x speed - strafe
-                         flightStick.getRawAxis(2)  //z rotation - turning
-                 )*/
                 new DriveJoystickCartesian(
                         driveSub,
                         flightStickDrive
