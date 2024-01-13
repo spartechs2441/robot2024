@@ -18,6 +18,7 @@ public final class Constants {
      * Shows the CAN IDs of all the motors
      */
     public static class Port {
+        public static final int MAIN_JOYSTICK = 0;
         public static final int BACK_LEFT_DRIVE = 1;
         public static final int FRONT_LEFT_DRIVE = 4;
         public static final int FRONT_RIGHT_DRIVE = 2;
@@ -42,7 +43,32 @@ public final class Constants {
         public static final double CONVEYOR = 1.5;
    }
 
-    public static class OperatorConstants {
-        public static final int DRIVER_CONTROLLER_PORT = 0;
+    /**
+     * Contains voltages of all the motors,
+     */
+    public static class Voltage {
+        // TODO Change these values
+        public static final double DEPLOY = 0;
+        public static final double INTAKE = 0;
+    }
+
+    public static class Buttons {
+        /**
+         * Button for sucking a note in
+         */
+        public static final int INTAKE = -1;
+        /**
+         * Button for spitting a note out
+         */
+        public static final int EJECT = -1;
+        /**
+         * Button for deploying the intake
+         */
+        public static final int DEPLOY = -1;
+        /**
+         * Button for putting up the intake
+         */
+        public static final int RETRACT = -1;
+
     }
 }

@@ -1,16 +1,15 @@
-package frc.robot.commands;
+package frc.robot.commands.teleop;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.DriveTrainSub;
 
-public class DriveJoystickCartesian extends Command {
+public class TeleopDriveCartesian extends Command {
 
     private final DriveTrainSub drive;
     private final Joystick joystick;
 
-    public DriveJoystickCartesian(
+    public TeleopDriveCartesian(
             DriveTrainSub subsystem,
             Joystick joystick
     ) {
