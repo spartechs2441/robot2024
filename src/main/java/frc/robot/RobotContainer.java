@@ -56,7 +56,7 @@ public class RobotContainer {
      */
     private void configureBindings() {
         driveSub.setDefaultCommand(
-                new DriveJoystickCartesian(
+                new TeleopDriveCartesian(
                         driveSub,
                         flightStickDrive
                 )
