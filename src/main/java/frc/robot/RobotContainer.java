@@ -5,15 +5,19 @@
 
 package frc.robot;
 
-import com.revrobotics.CANSparkLowLevel;
-import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.commands.DriveJoystickCartesian;
+import frc.robot.commands.teleop.TeleopDriveCartesian;
+import frc.robot.commands.teleop.intake.TeleopDeploy;
+import frc.robot.commands.teleop.intake.TeleopRetract;
+import frc.robot.commands.teleop.intake.TeleopStopDeploy;
 import frc.robot.subsystems.DriveTrainSub;
 import frc.robot.subsystems.IntakeSub;
+import jdk.jshell.execution.JdiExecutionControlProvider;
 
 
 /**
@@ -27,7 +31,7 @@ public class RobotContainer {
     private final DriveTrainSub driveSub;
     private final IntakeSub intakeSub;
     //    Joystick flightStickControl = new Joystick(1);
-    Joystick flightStickDrive = new Joystick(0);
+    Joystick flightStickDrive = new Joystick(Constants.Port.MAIN_JOYSTICK);
 
 
     /**
@@ -52,22 +56,29 @@ public class RobotContainer {
      */
     private void configureBindings() {
         driveSub.setDefaultCommand(
-//            new RunCommand(
-//                () -> driveSub.mecanumDrive(
-//                    flightStick.getY(), flightStick.getX(), flightStick.getZ()), driveSub
-//                )
-//            );
-                 /*new DriveCartesian(
-                         driveSub,
-                         flightStick.getRawAxis(1), //y speed - forwards & backwards
-                         flightStick.getRawAxis(0), //x speed - strafe
-                         flightStick.getRawAxis(2)  //z rotation - turning
-                 )*/
-                new DriveJoystickCartesian(
+                new TeleopDriveCartesian(
                         driveSub,
                         flightStickDrive
                 )
         );
+        intakeSub.setDefaultCommand(new TeleopStopDeploy(intakeSub));
+
+        final JoystickButton intakeButton = new JoystickButton(flightStickDrive, Constants.Buttons.INTAKE);
+        intakeButton.onTrue(new RunCommand(intakeSub::intake, intakeSub));
+        intakeButton.onFalse(new TeleopStopDeploy(intakeSub));
+
+        final JoystickButton ejectButton = new JoystickButton(flightStickDrive, Constants.Buttons.EJECT);
+        ejectButton.onTrue(new RunCommand(intakeSub::eject, intakeSub));
+        ejectButton.onFalse(new TeleopStopDeploy(intakeSub));
+
+        final JoystickButton deployButton = new JoystickButton(flightStickDrive, Constants.Buttons.DEPLOY);
+        deployButton.onTrue(new TeleopDeploy(intakeSub));
+        deployButton.onFalse(new TeleopStopDeploy(intakeSub));
+
+        final JoystickButton retractButton = new JoystickButton(flightStickDrive, Constants.Buttons.RETRACT);
+        retractButton.onTrue(new TeleopRetract(intakeSub));
+        retractButton.onFalse(new TeleopStopDeploy(intakeSub));
+
     }
 
 
