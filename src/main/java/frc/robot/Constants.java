@@ -27,7 +27,8 @@ public final class Constants {
         // robot has not been built so change these later
         public static final int INTAKE = -1;
         public static final int INTAKE_HINGE = -1;
-        public static final int SHOOTER = -1;
+        public static final int SHOOTER_RIGHT = 15;
+        public static final int SHOOTER_LEFT = 0;
         public static final int CONVEYOR = -1;
         public static final int LEFT_CLIMB = -1;
         public static final int RIGHT_CLIMB = -1;

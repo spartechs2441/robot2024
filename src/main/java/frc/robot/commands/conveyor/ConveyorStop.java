@@ -16,8 +16,4 @@ public class ConveyorStop extends Command {
         conveyor.stopConveyor();
     }
 
-    @Override
-    public boolean isFinished() {
-        return false;
-    }
 }

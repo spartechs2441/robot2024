@@ -13,12 +13,7 @@ public class FlywheelsInward extends Command {
 
     @Override
     public void execute() {
-        shooter.load();
-    }
-
-    @Override
-    public boolean isFinished() {
-        return false;
+        shooter.in();
     }
 }
 
