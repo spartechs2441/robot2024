@@ -6,7 +6,7 @@ import frc.robot.subsystems.ShooterSub;
 public class FlywheelsStop extends Command {
     private final ShooterSub shooter;
 
-    public FlywheelsStop(ArmSub subsystem) {
+    public FlywheelsStop(ShooterSub subsystem) {
         shooter = subsystem;
         addRequirements(shooter);
     }
@@ -16,8 +16,4 @@ public class FlywheelsStop extends Command {
         shooter.stopShoot();
     }
 
-    @Override
-    public boolean isFinished() {
-        return false;
-    }
 }

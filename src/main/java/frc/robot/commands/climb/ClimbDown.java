@@ -15,9 +15,4 @@ public class ClimbDown extends Command {
     public void execute() {
         climb.climbDown();
     }
-
-    @Override
-    public boolean isFinished() {
-        return false;
-    }
 }

@@ -15,9 +15,4 @@ public class ClimbStop extends Command {
     public void execute() {
         climb.climbStop();
     }
-
-    @Override
-    public boolean isFinished() {
-        return false;
-    }
 }

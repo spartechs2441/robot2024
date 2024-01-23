@@ -27,9 +27,4 @@ public class TeleopDriveCartesian extends Command {
         );
     }
 
-    @Override
-    public boolean isFinished() {
-        return false;
-    }
-
 }

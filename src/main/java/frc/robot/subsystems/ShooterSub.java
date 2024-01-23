@@ -6,33 +6,47 @@ import frc.robot.Constants;
 
 public class ShooterSub extends SubsystemBase {
 
-    RelativeEncoder shooterEncoder;
-    CANSparkMax shooterMotor;
+    private final RelativeEncoder shooterEncoder;
+    private final CANSparkMax leftMotor;
+    private final CANSparkMax rightMotor;
 
-    public ShooterSub(){
-        shooterMotor = new CANSparkMax(Constants.Port.SHOOTER, CANSparkLowLevel.MotorType.kBrushless);
 
-        shooterEncoder = shooterMotor.getEncoder(SparkRelativeEncoder.Type.kHallSensor, 42);
+    public ShooterSub() {
+        leftMotor = new CANSparkMax(Constants.Port.SHOOTER_LEFT, CANSparkLowLevel.MotorType.kBrushless);
+        rightMotor = new CANSparkMax(Constants.Port.SHOOTER_RIGHT, CANSparkLowLevel.MotorType.kBrushless);
+        shooterEncoder = rightMotor.getEncoder(SparkRelativeEncoder.Type.kHallSensor, 42);
 
-        //Resetting positiion
+        this.resetEncoders();
+    }
+
+    /**
+     * Resetting position for autonomous commands & Auto aiming during TeleOp
+     */
+    public void resetEncoders() {
         shooterEncoder.setPosition(0);
-
     }
 
-    //Resetting position for autonomous commands & Auto aiming during TeleOp
-    public void resetEncoders(){
-        shooterEncoder.setPosition(0);
+    // TODO I actually have no idea if this will work, this will need testing, controls might be inverted
+    /**
+     * Revving flywheel in
+     */
+    public void in() {
+        leftMotor.setVoltage(-Constants.Speed.SHOOTER);
+        rightMotor.setVoltage(Constants.Speed.SHOOTER);
     }
 
-    //Revving flywheel outwards
-    public void flywheelOut(){
-        shooterMotor.setVoltage(Constants.Speed.SHOOTER);
+    /**
+     * Revving flywheel out
+     */
+    public void out() {
+        leftMotor.setVoltage(Constants.Speed.SHOOTER);
+        rightMotor.setVoltage(-Constants.Speed.SHOOTER);
     }
-    //
-    public void stopShoot(){
-        shooterMotor.setVoltage(0);
-    }
-    public void load(){
-        shooterMotor.setVoltage(-1);
+
+    /**
+     * Stop motors from revving
+     */
+    public void stopShoot() {
+        rightMotor.setVoltage(0);
     }
 }
