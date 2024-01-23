@@ -11,12 +11,16 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.commands.flywheel.FlywheelsInward;
+import frc.robot.commands.flywheel.FlywheelsOutward;
+import frc.robot.commands.flywheel.FlywheelsStop;
 import frc.robot.commands.teleop.TeleopDriveCartesian;
 import frc.robot.commands.teleop.intake.TeleopDeploy;
 import frc.robot.commands.teleop.intake.TeleopRetract;
 import frc.robot.commands.teleop.intake.TeleopStopDeploy;
 import frc.robot.subsystems.DriveTrainSub;
 import frc.robot.subsystems.IntakeSub;
+import frc.robot.subsystems.ShooterSub;
 import jdk.jshell.execution.JdiExecutionControlProvider;
 
 
@@ -28,8 +32,9 @@ import jdk.jshell.execution.JdiExecutionControlProvider;
  */
 public class RobotContainer {
     // The robot's subsystems and commands are defined here...
-    private final DriveTrainSub driveSub;
-    private final IntakeSub intakeSub;
+//    private final DriveTrainSub driveSub;
+//    private final IntakeSub intakeSub;
+    private final ShooterSub shooterSub;
     //    Joystick flightStickControl = new Joystick(1);
     Joystick flightStickDrive = new Joystick(Constants.Port.MAIN_JOYSTICK);
 
@@ -38,10 +43,12 @@ public class RobotContainer {
      * The container for the robot. Contains subsystems, OI devices, and commands.
      */
     public RobotContainer() {
-        configureBindings();
 
-        driveSub = new DriveTrainSub();
-        intakeSub = new IntakeSub();
+
+//        driveSub = new DriveTrainSub();
+//        intakeSub = new IntakeSub();
+        shooterSub = new ShooterSub();
+        configureBindings();
     }
 
 
@@ -55,13 +62,15 @@ public class RobotContainer {
      * joysticks}.
      */
     private void configureBindings() {
+/*
         driveSub.setDefaultCommand(
                 new TeleopDriveCartesian(
                         driveSub,
                         flightStickDrive
                 )
         );
-        intakeSub.setDefaultCommand(new TeleopStopDeploy(intakeSub));
+          intakeSub.setDefaultCommand(new TeleopStopDeploy(intakeSub));
+
 
         final JoystickButton intakeButton = new JoystickButton(flightStickDrive, Constants.Buttons.INTAKE);
         intakeButton.onTrue(new RunCommand(intakeSub::intake, intakeSub));
@@ -78,7 +87,17 @@ public class RobotContainer {
         final JoystickButton retractButton = new JoystickButton(flightStickDrive, Constants.Buttons.RETRACT);
         retractButton.onTrue(new TeleopRetract(intakeSub));
         retractButton.onFalse(new TeleopStopDeploy(intakeSub));
+*/
 
+
+        JoystickButton butt7 = new JoystickButton(flightStickDrive, 7);
+        JoystickButton butt8 = new JoystickButton(flightStickDrive, 8);
+
+        butt7.onTrue(new FlywheelsInward(shooterSub));
+        butt7.onFalse(new FlywheelsStop(shooterSub));
+
+        butt8.onTrue(new FlywheelsOutward(shooterSub));
+        butt8.onFalse(new FlywheelsStop(shooterSub));
     }
 
 
