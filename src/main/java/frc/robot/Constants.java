@@ -19,16 +19,16 @@ public final class Constants {
      */
     public static class Port {
         public static final int MAIN_JOYSTICK = 0;
-        public static final int BACK_LEFT_DRIVE = 1;
-        public static final int FRONT_LEFT_DRIVE = 4;
-        public static final int FRONT_RIGHT_DRIVE = 2;
-        public static final int BACK_RIGHT_DRIVE = 3;
+        public static final int BACK_LEFT_DRIVE = -1;
+        public static final int FRONT_LEFT_DRIVE = -1;
+        public static final int FRONT_RIGHT_DRIVE = -1;
+        public static final int BACK_RIGHT_DRIVE = -1;
 
         // robot has not been built so change these later
         public static final int INTAKE = -1;
         public static final int INTAKE_HINGE = -1;
-        public static final int SHOOTER_RIGHT = 15;
-        public static final int SHOOTER_LEFT = 0;
+        public static final int SHOOTER_RIGHT = 2;
+        public static final int SHOOTER_LEFT = 1;
         public static final int CONVEYOR = -1;
         public static final int LEFT_CLIMB = -1;
         public static final int RIGHT_CLIMB = -1;
@@ -42,7 +42,7 @@ public final class Constants {
         public static final double AUTO = .6;
         public static final double TELEOP = 1;
         public static final double TELEOP_ROTATION = 1;
-        public static final double SHOOTER = 5;
+        public static final double SHOOTER = 8;
         public static final double CONVEYOR = 1.5;
         public static final double CLIMB = 1;
    }
