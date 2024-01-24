@@ -20,8 +20,13 @@ public class DriveTrainSub extends SubsystemBase {
     private final RelativeEncoder backRightEncoder;
     private final RelativeEncoder backLeftEncoder;
     private final MecanumDrive mecanumDrive;
+    private double turningSpeed;
+    private double speed;
 
     public DriveTrainSub() {
+
+        this.speed = Constants.Speed.TELEOP;
+        this.turningSpeed = Constants.Speed.TELEOP_ROTATION;
 
         CANSparkMax frontRight = new CANSparkMax(Constants.Port.FRONT_RIGHT_DRIVE, CANSparkLowLevel.MotorType.kBrushless);
         frontRight.setInverted(true);
@@ -29,8 +34,6 @@ public class DriveTrainSub extends SubsystemBase {
         backRight.setInverted(true);
         CANSparkMax frontLeft = new CANSparkMax(Constants.Port.FRONT_LEFT_DRIVE, CANSparkLowLevel.MotorType.kBrushless);
         CANSparkMax backLeft = new CANSparkMax(Constants.Port.BACK_LEFT_DRIVE, CANSparkLowLevel.MotorType.kBrushless);
-/*
-*/
 
         //initializing encoders
         frontRightEncoder = frontRight.getEncoder(SparkRelativeEncoder.Type.kHallSensor, 42);
@@ -95,10 +98,10 @@ public class DriveTrainSub extends SubsystemBase {
         while (getDistance() < feet) {
             brake = 1 - getDistance() / feet;
             switch (strafeDirection) {
-                case FORWARD -> mecanumDrive.driveCartesian(Constants.Speed.AUTO * brake, 0, 0);
-                case LEFT -> mecanumDrive.driveCartesian(0, Constants.Speed.AUTO * brake, 0);
-                case RIGHT -> mecanumDrive.driveCartesian(0, -Constants.Speed.AUTO * brake, 0);
-                case BACKWARDS -> mecanumDrive.driveCartesian(-Constants.Speed.AUTO * brake, 0, 0);
+                case FORWARD -> mecanumDrive.driveCartesian(this.speed * brake, 0, 0);
+                case LEFT -> mecanumDrive.driveCartesian(0, this.speed * brake, 0);
+                case RIGHT -> mecanumDrive.driveCartesian(0, -this.speed * brake, 0);
+                case BACKWARDS -> mecanumDrive.driveCartesian(-this.speed * brake, 0, 0);
             }
         }
     }
@@ -111,10 +114,26 @@ public class DriveTrainSub extends SubsystemBase {
      * @see MecanumDrive#driveCartesian(double, double, double)
      */
     public void mecanumDrive(double xSpeed, double ySpeed, double zRotation) {
-        xSpeed *= Constants.Speed.TELEOP;
-        ySpeed *= Constants.Speed.TELEOP;
-        zRotation = MathUtil.applyDeadband(zRotation * Constants.Speed.TELEOP_ROTATION, 0.4);
+        xSpeed *= this.speed;
+        ySpeed *= this.speed;
+        zRotation = MathUtil.applyDeadband(zRotation * this.turningSpeed, 0.4);
 
         mecanumDrive.driveCartesian(xSpeed, ySpeed, zRotation);
+    }
+
+    public double getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(double speed) {
+        this.speed = speed;
+    }
+
+    public double getTurningSpeed() {
+        return turningSpeed;
+    }
+
+    public void setTurningSpeed(double turningSpeed) {
+        this.turningSpeed = turningSpeed;
     }
 }

@@ -55,6 +55,10 @@ public class RobotContainer {
      * joysticks}.
      */
     private void configureBindings() {
+        System.out.println(
+                "Joystick name: " +
+                flightStickDrive.getName()
+        );
         driveSub.setDefaultCommand(
                 new TeleopDriveCartesian(
                         driveSub,
