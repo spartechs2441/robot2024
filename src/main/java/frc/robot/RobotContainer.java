@@ -33,7 +33,7 @@ import jdk.jshell.execution.JdiExecutionControlProvider;
 public class RobotContainer {
     // The robot's subsystems and commands are defined here...
 //    private final DriveTrainSub driveSub;
-//    private final IntakeSub intakeSub;
+//    private final IntakeSub intake;
     private final ShooterSub shooterSub;
     //    Joystick flightStickControl = new Joystick(1);
     Joystick flightStickDrive = new Joystick(Constants.Port.MAIN_JOYSTICK);
@@ -66,6 +66,7 @@ public class RobotContainer {
                 "Joystick name: " +
                 flightStickDrive.getName()
         );
+
 /*
 
         driveSub.setDefaultCommand(

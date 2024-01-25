@@ -42,7 +42,7 @@ public final class Constants {
         public static final double AUTO = .6;
         public static final double TELEOP = 1;
         public static final double TELEOP_ROTATION = 1;
-        public static final double SHOOTER = 8;
+        public static final double SHOOTER = 8.5+.5;
         public static final double CONVEYOR = 1.5;
         public static final double CLIMB = 1;
    }

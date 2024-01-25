@@ -14,6 +14,8 @@ public class ShooterSub extends SubsystemBase {
     public ShooterSub() {
         leftMotor = new CANSparkMax(Constants.Port.SHOOTER_LEFT, CANSparkLowLevel.MotorType.kBrushless);
         rightMotor = new CANSparkMax(Constants.Port.SHOOTER_RIGHT, CANSparkLowLevel.MotorType.kBrushless);
+        rightMotor.setInverted(true);
+        leftMotor.setInverted(false);
         shooterEncoder = rightMotor.getEncoder(SparkRelativeEncoder.Type.kHallSensor, 42);
 
         this.resetEncoders();
@@ -31,16 +33,16 @@ public class ShooterSub extends SubsystemBase {
      * Revving flywheel in
      */
     public void in() {
-        leftMotor.setVoltage(Constants.Speed.SHOOTER);
-        rightMotor.setVoltage(Constants.Speed.SHOOTER);
+        leftMotor.setVoltage(-0.1*Constants.Speed.SHOOTER);
+        rightMotor.setVoltage(-0.1*Constants.Speed.SHOOTER);
     }
 
     /**
      * Revving flywheel out
      */
     public void out() {
-        leftMotor.setVoltage(-Constants.Speed.SHOOTER);
-        rightMotor.setVoltage(-Constants.Speed.SHOOTER);
+        leftMotor.setVoltage(Constants.Speed.SHOOTER);
+        rightMotor.setVoltage(Constants.Speed.SHOOTER);
     }
 
     /**
