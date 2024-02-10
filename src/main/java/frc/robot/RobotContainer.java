@@ -33,8 +33,8 @@ import jdk.jshell.execution.JdiExecutionControlProvider;
 public class RobotContainer {
     // The robot's subsystems and commands are defined here...
 //    private final DriveTrainSub driveSub;
-//    private final IntakeSub intake;
-    private final ShooterSub shooterSub;
+    private final IntakeSub intakeSub;
+//    private final ShooterSub shooterSub;
     //    Joystick flightStickControl = new Joystick(1);
     Joystick flightStickDrive = new Joystick(Constants.Port.MAIN_JOYSTICK);
 
@@ -46,8 +46,8 @@ public class RobotContainer {
 
 
 //        driveSub = new DriveTrainSub();
-//        intakeSub = new IntakeSub();
-        shooterSub = new ShooterSub();
+        intakeSub = new IntakeSub();
+//        shooterSub = new ShooterSub();
         configureBindings();
     }
 
@@ -76,15 +76,16 @@ public class RobotContainer {
                 )
         );
           intakeSub.setDefaultCommand(new TeleopStopDeploy(intakeSub));
+          */
 
 
         final JoystickButton intakeButton = new JoystickButton(flightStickDrive, Constants.Buttons.INTAKE);
         intakeButton.onTrue(new RunCommand(intakeSub::intake, intakeSub));
-        intakeButton.onFalse(new TeleopStopDeploy(intakeSub));
+        intakeButton.onFalse(new RunCommand(intakeSub::stopIntake, intakeSub));
 
         final JoystickButton ejectButton = new JoystickButton(flightStickDrive, Constants.Buttons.EJECT);
         ejectButton.onTrue(new RunCommand(intakeSub::eject, intakeSub));
-        ejectButton.onFalse(new TeleopStopDeploy(intakeSub));
+        ejectButton.onFalse(new RunCommand(intakeSub::stopIntake, intakeSub));
 
         final JoystickButton deployButton = new JoystickButton(flightStickDrive, Constants.Buttons.DEPLOY);
         deployButton.onTrue(new TeleopDeploy(intakeSub));
@@ -93,17 +94,21 @@ public class RobotContainer {
         final JoystickButton retractButton = new JoystickButton(flightStickDrive, Constants.Buttons.RETRACT);
         retractButton.onTrue(new TeleopRetract(intakeSub));
         retractButton.onFalse(new TeleopStopDeploy(intakeSub));
-*/
 
 
-        JoystickButton butt7 = new JoystickButton(flightStickDrive, 7);
-        JoystickButton butt8 = new JoystickButton(flightStickDrive, 8);
+//        JoystickButton butt7 = new JoystickButton(flightStickDrive, 7);
+//        JoystickButton butt8 = new JoystickButton(flightStickDrive, 8);
+//
+//        butt7.onTrue(new FlywheelsInward(shooterSub));
+//        butt7.onFalse(new FlywheelsStop(shooterSub));
+//
+//        butt8.onTrue(new FlywheelsOutward(shooterSub));
+//        butt8.onFalse(new FlywheelsStop(shooterSub));
 
-        butt7.onTrue(new FlywheelsInward(shooterSub));
-        butt7.onFalse(new FlywheelsStop(shooterSub));
+        JoystickButton butt9 = new JoystickButton(flightStickDrive, 9);
+        JoystickButton butt10 = new JoystickButton(flightStickDrive, 10);
 
-        butt8.onTrue(new FlywheelsOutward(shooterSub));
-        butt8.onFalse(new FlywheelsStop(shooterSub));
+
     }
 
 

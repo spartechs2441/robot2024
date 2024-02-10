@@ -38,18 +38,18 @@ public class IntakeSub extends SubsystemBase {
      * Sucks in a note
      */
     public void intake() {
-        deployMotor.setVoltage(Constants.Voltage.DEPLOY);
+        intakeMotor.setVoltage(Constants.Voltage.INTAKE);
     }
 
     /**
      * Spits out a note
      */
     public void eject() {
-        deployMotor.setVoltage(-Constants.Voltage.DEPLOY);
+        intakeMotor.setVoltage(-Constants.Voltage.INTAKE);
     }
 
     public void stopIntake() {
-        deployMotor.setVoltage(0);
+        intakeMotor.setVoltage(0);
     }
 
 }

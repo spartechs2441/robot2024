@@ -25,10 +25,10 @@ public final class Constants {
         public static final int BACK_RIGHT_DRIVE = -1;
 
         // robot has not been built so change these later
-        public static final int INTAKE = -1;
-        public static final int INTAKE_HINGE = -1;
-        public static final int SHOOTER_RIGHT = 2;
-        public static final int SHOOTER_LEFT = 1;
+        public static final int INTAKE = 2;
+        public static final int INTAKE_HINGE = 1;
+        public static final int SHOOTER_RIGHT = -1;
+        public static final int SHOOTER_LEFT = -1;
         public static final int CONVEYOR = -1;
         public static final int LEFT_CLIMB = -1;
         public static final int RIGHT_CLIMB = -1;
@@ -52,27 +52,27 @@ public final class Constants {
      */
     public static class Voltage {
         // TODO Change these values
-        public static final double DEPLOY = 0;
-        public static final double INTAKE = 0;
+        public static final double DEPLOY = 2;
+        public static final double INTAKE = 3;
     }
 
     public static class Buttons {
         /**
          * Button for sucking a note in
          */
-        public static final int INTAKE = -1;
+        public static final int INTAKE = 9;
         /**
          * Button for spitting a note out
          */
-        public static final int EJECT = -1;
+        public static final int EJECT = 10;
         /**
          * Button for deploying the intake
          */
-        public static final int DEPLOY = -1;
+        public static final int DEPLOY = 8;
         /**
          * Button for putting up the intake
          */
-        public static final int RETRACT = -1;
+        public static final int RETRACT = 7;
 
     }
 }
