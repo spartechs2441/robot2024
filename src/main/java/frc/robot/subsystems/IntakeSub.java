@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkLowLevel;
 import com.revrobotics.CANSparkMax;
+import edu.wpi.first.wpilibj.CAN;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -12,9 +13,11 @@ public class IntakeSub extends SubsystemBase {
 
     private final CANSparkMax intakeMotor;
     private final CANSparkMax deployMotor;
+    private final CANSparkMax intakeTowerMotor;
     public IntakeSub() {
         intakeMotor = new CANSparkMax(Constants.Port.INTAKE, CANSparkLowLevel.MotorType.kBrushless);
         deployMotor = new CANSparkMax(Constants.Port.INTAKE_HINGE, CANSparkLowLevel.MotorType.kBrushless);
+        intakeTowerMotor = new CANSparkMax(Constants.Port.INTAKE_TOWER, CANSparkLowLevel.MotorType.kBrushless);
     }
 
     /**
@@ -52,4 +55,13 @@ public class IntakeSub extends SubsystemBase {
         intakeMotor.setVoltage(0);
     }
 
+    public void intakeTowerRise(){
+        intakeTowerMotor.setVoltage(Constants.Voltage.INTAKE_TOWER);
+    }
+    public void intakeTowerDrop(){
+        intakeTowerMotor.setVoltage(-Constants.Voltage.INTAKE_TOWER);
+    }
+    public void intakeTowerStop(){
+        intakeTowerMotor.setVoltage(0);
+    }
 }

@@ -26,7 +26,8 @@ public final class Constants {
 
         // robot has not been built so change these later
         public static final int INTAKE = 2;
-        public static final int INTAKE_HINGE = 1;
+        public static final int INTAKE_HINGE = 3;
+        public static final int INTAKE_TOWER = 1;
         public static final int SHOOTER_RIGHT = -1;
         public static final int SHOOTER_LEFT = -1;
         public static final int CONVEYOR = -1;
@@ -54,6 +55,7 @@ public final class Constants {
         // TODO Change these values
         public static final double DEPLOY = 2;
         public static final double INTAKE = 3;
+        public static final double INTAKE_TOWER = 9;
     }
 
     public static class Buttons {
@@ -73,6 +75,14 @@ public final class Constants {
          * Button for putting up the intake
          */
         public static final int RETRACT = 7;
+        /**
+         * Button for Raising the intake tower
+         */
+        public static final int RISE = 11;
+        /**
+         * Button for Dropping the intake tower
+         */
+        public static final int DROP = 12;
 
     }
 }

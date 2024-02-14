@@ -79,6 +79,7 @@ public class RobotContainer {
           */
 
 
+        //Intake
         final JoystickButton intakeButton = new JoystickButton(flightStickDrive, Constants.Buttons.INTAKE);
         intakeButton.onTrue(new RunCommand(intakeSub::intake, intakeSub));
         intakeButton.onFalse(new RunCommand(intakeSub::stopIntake, intakeSub));
@@ -87,6 +88,16 @@ public class RobotContainer {
         ejectButton.onTrue(new RunCommand(intakeSub::eject, intakeSub));
         ejectButton.onFalse(new RunCommand(intakeSub::stopIntake, intakeSub));
 
+        //Intake Tower
+        final JoystickButton riseButton = new JoystickButton(flightStickDrive, Constants.Buttons.RISE);
+        riseButton.onTrue(new RunCommand(intakeSub::intakeTowerRise, intakeSub));
+        riseButton.onFalse(new RunCommand(intakeSub::intakeTowerStop, intakeSub));
+
+        final JoystickButton dropButton = new JoystickButton(flightStickDrive, Constants.Buttons.DROP);
+        dropButton.onTrue(new RunCommand(intakeSub::intakeTowerDrop, intakeSub));
+        dropButton.onFalse(new RunCommand(intakeSub::intakeTowerStop, intakeSub));
+
+        //Intake hinge
         final JoystickButton deployButton = new JoystickButton(flightStickDrive, Constants.Buttons.DEPLOY);
         deployButton.onTrue(new TeleopDeploy(intakeSub));
         deployButton.onFalse(new TeleopStopDeploy(intakeSub));
