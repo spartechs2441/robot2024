@@ -20,7 +20,7 @@ public class LightTrackingMoving extends Command {
     private DriveTrainSub driveSub;
 
     public LightTrackingMoving(DriveTrainSub subsystem) {
-        llight = NetworkTableInstance.getDefault().getTable("limelight");;
+        llight = NetworkTableInstance.getDefault().getTable("limelight");
         ta = llight.getEntry("ta"); //area of reflective object
         tx = llight.getEntry("tx"); //displacement on x axis
         ty = llight.getEntry("ty"); //displacement on y axis

@@ -14,23 +14,26 @@ public class IntakeSub extends SubsystemBase {
     private final CANSparkMax intakeMotor;
     private final CANSparkMax deployMotor;
     private final CANSparkMax intakeTowerMotor;
+
     public IntakeSub() {
         intakeMotor = new CANSparkMax(Constants.Port.INTAKE, CANSparkLowLevel.MotorType.kBrushless);
         deployMotor = new CANSparkMax(Constants.Port.INTAKE_HINGE, CANSparkLowLevel.MotorType.kBrushless);
         intakeTowerMotor = new CANSparkMax(Constants.Port.INTAKE_TOWER, CANSparkLowLevel.MotorType.kBrushless);
+        intakeTowerMotor.setInverted(true);
     }
 
     /**
      * Deploys the intake
      */
     public void deploy() {
-        deployMotor.setVoltage(Constants.Voltage.DEPLOY);
+        deployMotor.setVoltage(-Constants.Voltage.DEPLOY);
     }
+
     /**
      * Puts up the intake
      */
     public void retract() {
-        deployMotor.setVoltage(-Constants.Voltage.DEPLOY);
+        deployMotor.setVoltage(Constants.Voltage.DEPLOY);
     }
 
     public void stopDeploy() {
@@ -55,13 +58,15 @@ public class IntakeSub extends SubsystemBase {
         intakeMotor.setVoltage(0);
     }
 
-    public void intakeTowerRise(){
+    public void intakeTowerRise() {
         intakeTowerMotor.setVoltage(Constants.Voltage.INTAKE_TOWER);
     }
-    public void intakeTowerDrop(){
+
+    public void intakeTowerDrop() {
         intakeTowerMotor.setVoltage(-Constants.Voltage.INTAKE_TOWER);
     }
-    public void intakeTowerStop(){
+
+    public void intakeTowerStop() {
         intakeTowerMotor.setVoltage(0);
     }
 }

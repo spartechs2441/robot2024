@@ -29,12 +29,13 @@ public class ShooterSub extends SubsystemBase {
     }
 
     // TODO I actually have no idea if this will work, this will need testing, controls might be inverted
+
     /**
      * Revving flywheel in
      */
     public void in() {
-        leftMotor.setVoltage(-0.1*Constants.Speed.SHOOTER);
-        rightMotor.setVoltage(-0.1*Constants.Speed.SHOOTER);
+        leftMotor.setVoltage(-0.1 * Constants.Speed.SHOOTER);
+        rightMotor.setVoltage(-0.1 * Constants.Speed.SHOOTER);
     }
 
     /**

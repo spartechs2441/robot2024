@@ -11,7 +11,7 @@ public class ConveyorSub extends SubsystemBase {
     CANSparkMax conveyorMotor;
     RelativeEncoder conveyorEncoder;
 
-    public ConveyorSub(){
+    public ConveyorSub() {
         conveyorMotor = new CANSparkMax(Constants.Port.CONVEYOR, CANSparkLowLevel.MotorType.kBrushless);
 
         conveyorEncoder = conveyorMotor.getEncoder(SparkRelativeEncoder.Type.kHallSensor, 42);
@@ -22,17 +22,19 @@ public class ConveyorSub extends SubsystemBase {
     }
 
     //Resetting position for autonomous commands & Auto aiming during TeleOp
-    public void resetEncoders(){
+    public void resetEncoders() {
         conveyorEncoder.setPosition(0);
     }
 
-    public void conveyorDown(){
+    public void conveyorDown() {
         conveyorMotor.setVoltage(-Constants.Speed.CONVEYOR);
     }
-    public void conveyorUp(){
+
+    public void conveyorUp() {
         conveyorMotor.setVoltage(Constants.Speed.CONVEYOR);
     }
-    public void stopConveyor(){
+
+    public void stopConveyor() {
         conveyorMotor.setVoltage(0);
     }
 }
