@@ -53,10 +53,7 @@ public class DriveTrainSub extends SubsystemBase {
         mecanumDrive.setDeadband(0.3);
 
         //resetting encoders
-        frontRightEncoder.setPosition(0);
-        frontLeftEncoder.setPosition(0);
-        backRightEncoder.setPosition(0);
-        backLeftEncoder.setPosition(0);
+        resetEncoders();
     }
 
     /**

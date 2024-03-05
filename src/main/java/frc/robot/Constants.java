@@ -30,6 +30,8 @@ public final class Constants {
         public static final int INTAKE_TOWER = 3;
         public static final int SHOOTER_RIGHT = -1;
         public static final int SHOOTER_LEFT = -1;
+        public static final int FEEDER_RIGHT = -1;
+        public static final int FEEDER_LEFT = -1;
         public static final int CONVEYOR = -1;
         public static final int LEFT_CLIMB = -1;
         public static final int RIGHT_CLIMB = -1;
@@ -44,6 +46,7 @@ public final class Constants {
         public static final double TELEOP = 1;
         public static final double TELEOP_ROTATION = 1;
         public static final double SHOOTER = 8.5+.5;
+        public static final double FEEDER = 1;
         public static final double CONVEYOR = 1.5;
         public static final double CLIMB = 1;
    }
@@ -62,27 +65,32 @@ public final class Constants {
         /**
          * Button for sucking a note in
          */
-        public static final int INTAKE = 9;
+        public static final int INTAKE = 7;
         /**
          * Button for spitting a note out
          */
-        public static final int EJECT = 10;
+        public static final int EJECT = 8;
         /**
          * Button for deploying the intake
          */
-        public static final int DEPLOY = 8;
+        public static final int DEPLOY = 12;
         /**
          * Button for putting up the intake
          */
-        public static final int RETRACT = 7;
+        public static final int RETRACT = 11;
         /**
          * Button for Raising the intake tower
          */
-        public static final int RISE = 11;
+        public static final int RISE = 9;
         /**
          * Button for Dropping the intake tower
          */
-        public static final int DROP = 12;
-
+        public static final int DROP = 10;
+        public static final int SPIT = 5;
+        public static final int SLURP = 3;
+        public static final int FEEDER_IN = -1;
+        public static final int FEEDER_OUT = -1;
+        public static final int UPPIES = 6;
+        public static final int DOWNS = 4;
     }
 }

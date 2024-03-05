@@ -1,19 +1,19 @@
-package frc.robot.commands.flywheel;
+package frc.robot.commands.teleop.feeder;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ShooterSub;
 
-public class FlywheelsStop extends Command {
+public class FeederInward extends Command {
     private final ShooterSub shooter;
 
-    public FlywheelsStop(ShooterSub subsystem) {
+    public FeederInward(ShooterSub subsystem) {
         shooter = subsystem;
         addRequirements(shooter);
     }
 
     @Override
     public void execute() {
-        shooter.stopShoot();
+        shooter.feederIn();
     }
-
 }
+

@@ -11,17 +11,10 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.commands.flywheel.FlywheelsInward;
-import frc.robot.commands.flywheel.FlywheelsOutward;
-import frc.robot.commands.flywheel.FlywheelsStop;
-import frc.robot.commands.teleop.TeleopDriveCartesian;
 import frc.robot.commands.teleop.intake.TeleopDeploy;
 import frc.robot.commands.teleop.intake.TeleopRetract;
 import frc.robot.commands.teleop.intake.TeleopStopDeploy;
-import frc.robot.subsystems.DriveTrainSub;
 import frc.robot.subsystems.IntakeSub;
-import frc.robot.subsystems.ShooterSub;
-import jdk.jshell.execution.JdiExecutionControlProvider;
 
 
 /**
