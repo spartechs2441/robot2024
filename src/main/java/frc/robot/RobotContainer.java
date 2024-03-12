@@ -11,9 +11,11 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.commands.teleop.TeleopDriveCartesian;
 import frc.robot.commands.teleop.intake.TeleopDeploy;
 import frc.robot.commands.teleop.intake.TeleopRetract;
 import frc.robot.commands.teleop.intake.TeleopStopDeploy;
+import frc.robot.subsystems.DriveTrainSub;
 import frc.robot.subsystems.IntakeSub;
 
 
@@ -25,7 +27,7 @@ import frc.robot.subsystems.IntakeSub;
  */
 public class RobotContainer {
     // The robot's subsystems and commands are defined here...
-//    private final DriveTrainSub driveSub;
+    private final DriveTrainSub driveSub;
     private final IntakeSub intakeSub;
 //    private final ShooterSub shooterSub;
     //    Joystick flightStickControl = new Joystick(1);
@@ -38,7 +40,7 @@ public class RobotContainer {
     public RobotContainer() {
 
 
-//        driveSub = new DriveTrainSub();
+        driveSub = new DriveTrainSub();
         intakeSub = new IntakeSub();
 //        shooterSub = new ShooterSub();
         configureBindings();
@@ -60,8 +62,6 @@ public class RobotContainer {
                 flightStickDrive.getName()
         );
 
-/*
-
         driveSub.setDefaultCommand(
                 new TeleopDriveCartesian(
                         driveSub,
@@ -69,7 +69,7 @@ public class RobotContainer {
                 )
         );
           intakeSub.setDefaultCommand(new TeleopStopDeploy(intakeSub));
-          */
+
 
 
         //Intake

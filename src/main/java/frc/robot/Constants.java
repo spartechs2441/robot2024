@@ -19,22 +19,21 @@ public final class Constants {
      */
     public static class Port {
         public static final int MAIN_JOYSTICK = 0;
-        public static final int BACK_LEFT_DRIVE = -1;
-        public static final int FRONT_LEFT_DRIVE = -1;
-        public static final int FRONT_RIGHT_DRIVE = -1;
-        public static final int BACK_RIGHT_DRIVE = -1;
+        public static final int BACK_LEFT_DRIVE = 5; //1
+        public static final int FRONT_LEFT_DRIVE = 4; //3
+        public static final int FRONT_RIGHT_DRIVE = 1; //6
+        public static final int BACK_RIGHT_DRIVE = 2; //7
 
         // robot has not been built so change these later
-        public static final int INTAKE = 2;
-        public static final int INTAKE_HINGE = 1;
-        public static final int INTAKE_TOWER = 3;
-        public static final int SHOOTER_RIGHT = -1;
-        public static final int SHOOTER_LEFT = -1;
-        public static final int FEEDER_RIGHT = -1;
-        public static final int FEEDER_LEFT = -1;
-        public static final int CONVEYOR = -1;
-        public static final int LEFT_CLIMB = -1;
-        public static final int RIGHT_CLIMB = -1;
+        public static final int INTAKE = -1;
+        public static final int INTAKE_HINGE = -2;
+        public static final int INTAKE_TOWER = -3;
+        public static final int SHOOTER_RIGHT = 7;
+        public static final int SHOOTER_LEFT = 10;
+        public static final int FEEDER_RIGHT = -4;
+        public static final int FEEDER_LEFT = -5;
+        public static final int LEFT_CLIMB = 0;
+        public static final int RIGHT_CLIMB = 9;
     }
 
     /**
@@ -86,11 +85,29 @@ public final class Constants {
          * Button for Dropping the intake tower
          */
         public static final int DROP = 10;
+        /**
+         * Button for Spinning the Flywheels Outwards
+         */
         public static final int SPIT = 5;
+        /**
+         * Button for Spinning the Flywheels Inwards
+         */
         public static final int SLURP = 3;
+        /**
+         * Button for Spinning the Feeder Wheels Inwards
+         */
         public static final int FEEDER_IN = -1;
+        /**
+         * Button for Spinning the Feeder Wheels Outwards
+         */
         public static final int FEEDER_OUT = -1;
+        /**
+         * Button for Raising the Climb
+         */
         public static final int UPPIES = 6;
+        /**
+         * Button for Lowering the Climb
+         */
         public static final int DOWNS = 4;
     }
 }
