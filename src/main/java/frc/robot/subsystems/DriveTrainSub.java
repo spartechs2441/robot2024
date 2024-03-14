@@ -29,11 +29,13 @@ public class DriveTrainSub extends SubsystemBase {
         this.turningSpeed = Constants.Speed.TELEOP_ROTATION;
 
         CANSparkMax frontRight = new CANSparkMax(Constants.Port.FRONT_RIGHT_DRIVE, CANSparkLowLevel.MotorType.kBrushless);
-        frontRight.setInverted(true);
+        frontRight.setInverted(false);
         CANSparkMax backRight = new CANSparkMax(Constants.Port.BACK_RIGHT_DRIVE, CANSparkLowLevel.MotorType.kBrushless);
-        backRight.setInverted(true);
+        backRight.setInverted(false);
         CANSparkMax frontLeft = new CANSparkMax(Constants.Port.FRONT_LEFT_DRIVE, CANSparkLowLevel.MotorType.kBrushless);
+        frontLeft.setInverted(true);
         CANSparkMax backLeft = new CANSparkMax(Constants.Port.BACK_LEFT_DRIVE, CANSparkLowLevel.MotorType.kBrushless);
+        backLeft.setInverted(true);
 
         //initializing encoders
         frontRightEncoder = frontRight.getEncoder(SparkRelativeEncoder.Type.kHallSensor, 42);
@@ -113,7 +115,7 @@ public class DriveTrainSub extends SubsystemBase {
     public void mecanumDrive(double xSpeed, double ySpeed, double zRotation) {
         xSpeed *= this.speed;
         ySpeed *= this.speed;
-        zRotation = MathUtil.applyDeadband(zRotation * this.turningSpeed, 0.4);
+        zRotation = -MathUtil.applyDeadband(zRotation * this.turningSpeed, 0.4);
 
         mecanumDrive.driveCartesian(xSpeed, ySpeed, zRotation);
     }

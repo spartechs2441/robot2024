@@ -1,17 +1,17 @@
-package frc.robot.commands;
+package frc.robot.commands.autoCommands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ShooterSub;
 
 public class AutoShoot extends Command {
-    private final ShooterSub flywheels;
+    private final ShooterSub shooter;
     private final double duration;
     private double startTime;
 
     public AutoShoot(ShooterSub subsystem) {
-        flywheels = subsystem;
-        addRequirements(flywheels);
-        duration = 900; //Will change
+        shooter = subsystem;
+        addRequirements(shooter);
+        duration = 3000; //Will change
     }
 
     // only goes once at beginning when command is called
@@ -23,13 +23,18 @@ public class AutoShoot extends Command {
     // keeps repeating until the command ends
     @Override
     public void execute() {
-        flywheels.out();
+        shooter.out();
+        if ((System.currentTimeMillis()-startTime) <= 2000){
+            shooter.feederOut();
+        }
+
     }
 
     //only goes once at end when command is finishing
     @Override
     public void end(boolean interrupted) {
-        flywheels.stopShoot();
+        shooter.stopShoot();
+        shooter.stopFeeder();
     }
 
     //condition for the command to end on its own

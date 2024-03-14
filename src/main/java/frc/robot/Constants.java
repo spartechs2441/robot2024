@@ -19,20 +19,19 @@ public final class Constants {
      */
     public static class Port {
         public static final int MAIN_JOYSTICK = 0;
-        public static final int BACK_LEFT_DRIVE = 5; //1
-        public static final int FRONT_LEFT_DRIVE = 4; //3
-        public static final int FRONT_RIGHT_DRIVE = 1; //6
-        public static final int BACK_RIGHT_DRIVE = 2; //7
+        public static final int BACK_LEFT_DRIVE = 5;
+        public static final int FRONT_LEFT_DRIVE = 4;
+        public static final int FRONT_RIGHT_DRIVE = 1;
+        public static final int BACK_RIGHT_DRIVE = 2;
 
         // robot has not been built so change these later
         public static final int INTAKE = -1;
         public static final int INTAKE_HINGE = -2;
         public static final int INTAKE_TOWER = -3;
-        public static final int SHOOTER_RIGHT = 7;
-        public static final int SHOOTER_LEFT = 10;
-        public static final int FEEDER_RIGHT = -4;
-        public static final int FEEDER_LEFT = -5;
-        public static final int LEFT_CLIMB = 0;
+        public static final int SHOOTER_RIGHT = 10;
+        public static final int SHOOTER_LEFT = 6;
+        public static final int FEEDER = 7;
+        public static final int LEFT_CLIMB = 9;
         public static final int RIGHT_CLIMB = 9;
     }
 
@@ -42,7 +41,7 @@ public final class Constants {
      */
     public static class Speed {
         public static final double AUTO = .6;
-        public static final double TELEOP = 1;
+        public static final double TELEOP = 0.25;
         public static final double TELEOP_ROTATION = 1;
         public static final double SHOOTER = 8.5+.5;
         public static final double FEEDER = 1;
@@ -96,11 +95,11 @@ public final class Constants {
         /**
          * Button for Spinning the Feeder Wheels Inwards
          */
-        public static final int FEEDER_IN = -1;
+        public static final int FEEDER_IN = 1;
         /**
          * Button for Spinning the Feeder Wheels Outwards
          */
-        public static final int FEEDER_OUT = -1;
+        public static final int FEEDER_OUT = 2;
         /**
          * Button for Raising the Climb
          */

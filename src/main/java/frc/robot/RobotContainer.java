@@ -11,12 +11,24 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.commands.autoCommands.ShootAndRun;
 import frc.robot.commands.teleop.TeleopDriveCartesian;
+import frc.robot.commands.teleop.climb.ClimbDown;
+import frc.robot.commands.teleop.climb.ClimbStop;
+import frc.robot.commands.teleop.climb.ClimbUp;
+import frc.robot.commands.teleop.feeder.FeederInward;
+import frc.robot.commands.teleop.feeder.FeederOutward;
+import frc.robot.commands.teleop.feeder.FeederStop;
+import frc.robot.commands.teleop.flywheel.FlywheelsInward;
+import frc.robot.commands.teleop.flywheel.FlywheelsOutward;
+import frc.robot.commands.teleop.flywheel.FlywheelsStop;
 import frc.robot.commands.teleop.intake.TeleopDeploy;
 import frc.robot.commands.teleop.intake.TeleopRetract;
 import frc.robot.commands.teleop.intake.TeleopStopDeploy;
+import frc.robot.subsystems.ClimbSub;
 import frc.robot.subsystems.DriveTrainSub;
 import frc.robot.subsystems.IntakeSub;
+import frc.robot.subsystems.ShooterSub;
 
 
 /**
@@ -29,7 +41,8 @@ public class RobotContainer {
     // The robot's subsystems and commands are defined here...
     private final DriveTrainSub driveSub;
     private final IntakeSub intakeSub;
-//    private final ShooterSub shooterSub;
+    private final ShooterSub shooterSub;
+    private final ClimbSub climbSub;
     //    Joystick flightStickControl = new Joystick(1);
     Joystick flightStickDrive = new Joystick(Constants.Port.MAIN_JOYSTICK);
 
@@ -39,10 +52,10 @@ public class RobotContainer {
      */
     public RobotContainer() {
 
-
+        climbSub = new ClimbSub();
         driveSub = new DriveTrainSub();
         intakeSub = new IntakeSub();
-//        shooterSub = new ShooterSub();
+        shooterSub = new ShooterSub();
         configureBindings();
     }
 
@@ -99,20 +112,29 @@ public class RobotContainer {
         retractButton.onTrue(new TeleopRetract(intakeSub));
         retractButton.onFalse(new TeleopStopDeploy(intakeSub));
 
+        final JoystickButton feederInButton = new JoystickButton(flightStickDrive, Constants.Buttons.FEEDER_IN);
+        feederInButton.onTrue(new FeederInward(shooterSub));
+        feederInButton.onFalse(new FeederStop(shooterSub));
 
-//        JoystickButton butt7 = new JoystickButton(flightStickDrive, 7);
-//        JoystickButton butt8 = new JoystickButton(flightStickDrive, 8);
-//
-//        butt7.onTrue(new FlywheelsInward(shooterSub));
-//        butt7.onFalse(new FlywheelsStop(shooterSub));
-//
-//        butt8.onTrue(new FlywheelsOutward(shooterSub));
-//        butt8.onFalse(new FlywheelsStop(shooterSub));
+        final JoystickButton feederOutButton = new JoystickButton(flightStickDrive, Constants.Buttons.FEEDER_OUT);
+        feederOutButton.onTrue(new FeederOutward(shooterSub));
+        feederOutButton.onFalse(new FeederStop(shooterSub));
 
-        JoystickButton butt9 = new JoystickButton(flightStickDrive, 9);
-        JoystickButton butt10 = new JoystickButton(flightStickDrive, 10);
+        final JoystickButton shootButton = new JoystickButton(flightStickDrive, Constants.Buttons.SPIT);
+        shootButton.onTrue(new FlywheelsOutward(shooterSub));
+        shootButton.onFalse(new FlywheelsStop(shooterSub));
 
+        final JoystickButton eatButton = new JoystickButton(flightStickDrive, Constants.Buttons.SLURP);
+        eatButton.onTrue(new FlywheelsInward(shooterSub));
+        eatButton.onFalse(new FlywheelsStop(shooterSub));
 
+        final JoystickButton climbUpButton = new JoystickButton(flightStickDrive, Constants.Buttons.UPPIES);
+        climbUpButton.onTrue(new ClimbUp(climbSub));
+        climbUpButton.onFalse(new ClimbStop(climbSub));
+
+        final JoystickButton climbDownButton = new JoystickButton(flightStickDrive, Constants.Buttons.DOWNS);
+        climbDownButton.onTrue(new ClimbDown(climbSub));
+        climbDownButton.onFalse(new ClimbStop(climbSub));
     }
 
 
@@ -122,6 +144,6 @@ public class RobotContainer {
      * @return the command to run in autonomous
      */
     public Command getAutonomousCommand() {
-        return null;
+        return new ShootAndRun(shooterSub, driveSub);
     }
 }

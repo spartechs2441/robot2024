@@ -1,7 +1,6 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.*;
-import edu.wpi.first.wpilibj.CAN;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -10,8 +9,7 @@ public class ShooterSub extends SubsystemBase {
     private final RelativeEncoder shooterEncoder;
     private final CANSparkMax leftMotor;
     private final CANSparkMax rightMotor;
-    private final CANSparkMax leftFeeder;
-    private final CANSparkMax rightFeeder;
+    private final CANSparkMax feederMotor;
 
 
     public ShooterSub() {
@@ -21,8 +19,7 @@ public class ShooterSub extends SubsystemBase {
         leftMotor.setInverted(false);
         shooterEncoder = rightMotor.getEncoder(SparkRelativeEncoder.Type.kHallSensor, 42);
 
-        leftFeeder = new CANSparkMax(Constants.Port.FEEDER_LEFT, CANSparkLowLevel.MotorType.kBrushless);
-        rightFeeder = new CANSparkMax(Constants.Port.FEEDER_RIGHT, CANSparkLowLevel.MotorType.kBrushless);
+        feederMotor = new CANSparkMax(Constants.Port.FEEDER, CANSparkLowLevel.MotorType.kBrushless);
 
         this.resetEncoders();
     }
@@ -60,15 +57,12 @@ public class ShooterSub extends SubsystemBase {
         rightMotor.setVoltage(0);
     }
     public void feederIn() {
-        leftFeeder.setVoltage(-Constants.Speed.FEEDER);
-        rightFeeder.setVoltage(-Constants.Speed.FEEDER);
+        feederMotor.setVoltage(-Constants.Speed.FEEDER);
     }
     public void feederOut() {
-        leftFeeder.setVoltage(Constants.Speed.FEEDER);
-        rightFeeder.setVoltage(Constants.Speed.FEEDER);
+        feederMotor.setVoltage(Constants.Speed.FEEDER);
     }
     public void stopFeeder() {
-        leftFeeder.setVoltage(0);
-        rightFeeder.setVoltage(0);
+        feederMotor.setVoltage(0);
     }
 }
