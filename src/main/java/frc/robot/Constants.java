@@ -25,14 +25,14 @@ public final class Constants {
         public static final int BACK_RIGHT_DRIVE = 2;
 
         // robot has not been built so change these later
-        public static final int INTAKE = -1;
-        public static final int INTAKE_HINGE = -2;
-        public static final int INTAKE_TOWER = -3;
+        public static final int INTAKE = 12;
+        public static final int INTAKE_HINGE = 11;
+        public static final int INTAKE_TOWER = -1;
         public static final int SHOOTER_RIGHT = 10;
         public static final int SHOOTER_LEFT = 6;
         public static final int FEEDER = 7;
         public static final int LEFT_CLIMB = 9;
-        public static final int RIGHT_CLIMB = 9;
+        public static final int RIGHT_CLIMB = 3;
     }
 
     /**
@@ -41,12 +41,12 @@ public final class Constants {
      */
     public static class Speed {
         public static final double AUTO = .6;
-        public static final double TELEOP = 0.25;
-        public static final double TELEOP_ROTATION = 1;
+        public static final double TELEOP = 0.75;
+        public static final double TELEOP_ROTATION = 0.75;
         public static final double SHOOTER = 8.5+.5;
         public static final double FEEDER = 1;
         public static final double CONVEYOR = 1.5;
-        public static final double CLIMB = 1;
+        public static final double CLIMB = 3;
    }
 
     /**

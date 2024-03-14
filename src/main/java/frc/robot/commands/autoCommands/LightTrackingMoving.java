@@ -52,7 +52,7 @@ public class LightTrackingMoving extends Command {
             if (area < dist) {
                 driveSub.mecanumDrive(forwardSpeed, 0, rotationSpeed);
             } else if (area >= dist) {
-                driveSub.mecanumDrive(backwardSpeed, 0, rotationSpeed);
+                driveSub.mecanumDrive(backwardSpeed, 0, ySpeed);
             }
         } else {
             driveSub.mecanumDrive(0, 0, 0);
