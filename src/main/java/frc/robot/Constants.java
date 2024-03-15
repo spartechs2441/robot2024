@@ -27,7 +27,7 @@ public final class Constants {
         // robot has not been built so change these later
         public static final int INTAKE = 12;
         public static final int INTAKE_HINGE = 11;
-        public static final int INTAKE_TOWER = -1;
+        public static final int INTAKE_TOWER = 13;
         public static final int SHOOTER_RIGHT = 10;
         public static final int SHOOTER_LEFT = 6;
         public static final int FEEDER = 7;
@@ -44,7 +44,7 @@ public final class Constants {
         public static final double TELEOP = 0.75;
         public static final double TELEOP_ROTATION = 0.75;
         public static final double SHOOTER = 8.5+.5;
-        public static final double FEEDER = 1;
+        public static final double FEEDER = 3;
         public static final double CONVEYOR = 1.5;
         public static final double CLIMB = 3;
    }

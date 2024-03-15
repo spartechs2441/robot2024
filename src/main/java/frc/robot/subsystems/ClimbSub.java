@@ -16,10 +16,11 @@ public class ClimbSub extends SubsystemBase {
     public ClimbSub() {
         leftMotor = new CANSparkMax(Constants.Port.LEFT_CLIMB, CANSparkLowLevel.MotorType.kBrushless);
         leftMotorEncoder = leftMotor.getEncoder(SparkRelativeEncoder.Type.kHallSensor, 42);
+        leftMotor.setInverted(false);
 
         rightMotor = new CANSparkMax(Constants.Port.RIGHT_CLIMB, CANSparkLowLevel.MotorType.kBrushless);
         rightMotorEncoder = rightMotor.getEncoder(SparkRelativeEncoder.Type.kHallSensor, 42);
-        rightMotor.setInverted(true);
+        rightMotor.setInverted(false);
 
         //Resetting position
         resetEncoders();
