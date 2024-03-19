@@ -13,10 +13,7 @@ public class LightTrackingMoving extends Command {
     private NetworkTableEntry ty;
     private NetworkTableEntry ta;
     private NetworkTableEntry tv;
-    private double x;
-    private double y;
-    private double area;
-    private Long isSomething;
+    private NetworkTableEntry id;
     private DriveTrainSub driveSub;
 
     public LightTrackingMoving(DriveTrainSub subsystem) {
@@ -25,8 +22,10 @@ public class LightTrackingMoving extends Command {
         tx = llight.getEntry("tx"); //displacement on x axis
         ty = llight.getEntry("ty"); //displacement on y axis
         tv = llight.getEntry("tv"); //0 or 1 depending on if there is a reflective object
+        id = llight.getEntry("tid");
         driveSub = subsystem;
         addRequirements(driveSub);
+
     }
 
     // only goes once at beginning when command is called
@@ -37,13 +36,14 @@ public class LightTrackingMoving extends Command {
     // keeps repeating until the command ends
     @Override
     public void execute() {
-        area = ta.getDouble(0.0);
-        x = tx.getDouble(0.0);
-        y = ty.getDouble(0.0);
-        isSomething = tv.getInteger(0);
+        double area = ta.getDouble(0.0);
+        double x = tx.getDouble(0.0);
+        double y = ty.getDouble(0.0);
+        long isSomething = tv.getInteger(0);
+        double tagID = id.getDouble(0.0);
 
-        //CHECK IF SOMETHING'S HERE THEN TURN TOWARD IT
-        if (isSomething == 1) {
+        //CHECK IF SOMETHING'S HERE AND CHECKS IF THAT SOMETHING IS THE RIGHT ID THEN MOVE TOWARD IT
+        if (isSomething == 1 && (5 == tagID || tagID == 6)) { //5 & 6 are the ids for the AMP
             final double dist = 1f;
             final double backwardSpeed = (1 - Math.cbrt(area));
             final double forwardSpeed = (Math.sqrt(3) - Math.sqrt(area)) / 2;
