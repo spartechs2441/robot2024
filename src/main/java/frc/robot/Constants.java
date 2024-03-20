@@ -41,12 +41,12 @@ public final class Constants {
      */
     public static class Speed {
         public static final double AUTO = .6;
-        public static final double TELEOP = 0.75;
-        public static final double TELEOP_ROTATION = 0.75;
-        public static final double SHOOTER = 10;
+        public static final double TELEOP = 1;
+        public static final double TELEOP_ROTATION = 1;
+        public static final double SHOOTER = 11;
         public static final double FEEDER = 3;
         public static final double CONVEYOR = 1.5;
-        public static final double CLIMB = 3;
+        public static final double CLIMB = 6;
    }
 
     /**
@@ -54,8 +54,8 @@ public final class Constants {
      */
     public static class Voltage {
         // TODO Change these values
-        public static final double DEPLOY = 2;
-        public static final double INTAKE = 3;
+        public static final double HINGE = 3;
+        public static final double INTAKE = 4;
         public static final double INTAKE_TOWER = 8;
     }
 
@@ -95,11 +95,11 @@ public final class Constants {
         /**
          * Button for Spinning the Feeder Wheels Inwards
          */
-        public static final int FEEDER_IN = 1;
+        public static final int FEEDER_IN = 2;
         /**
          * Button for Spinning the Feeder Wheels Outwards
          */
-        public static final int FEEDER_OUT = 2;
+        public static final int FEEDER_OUT = 1;
         /**
          * Button for Raising the Climb
          */

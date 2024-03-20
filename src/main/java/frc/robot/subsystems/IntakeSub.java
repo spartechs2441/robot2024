@@ -2,7 +2,6 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkLowLevel;
 import com.revrobotics.CANSparkMax;
-import edu.wpi.first.wpilibj.CAN;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -12,12 +11,12 @@ import frc.robot.Constants;
 public class IntakeSub extends SubsystemBase {
 
     private final CANSparkMax intakeMotor;
-    private final CANSparkMax deployMotor;
+    private final CANSparkMax hingeMotor;
     private final CANSparkMax intakeTowerMotor;
 
     public IntakeSub() {
         intakeMotor = new CANSparkMax(Constants.Port.INTAKE, CANSparkLowLevel.MotorType.kBrushless);
-        deployMotor = new CANSparkMax(Constants.Port.INTAKE_HINGE, CANSparkLowLevel.MotorType.kBrushless);
+        hingeMotor = new CANSparkMax(Constants.Port.INTAKE_HINGE, CANSparkLowLevel.MotorType.kBrushless);
         intakeTowerMotor = new CANSparkMax(Constants.Port.INTAKE_TOWER, CANSparkLowLevel.MotorType.kBrushless);
         intakeTowerMotor.setInverted(true);
     }
@@ -26,32 +25,32 @@ public class IntakeSub extends SubsystemBase {
      * Deploys the intake
      */
     public void deploy() {
-        deployMotor.setVoltage(-Constants.Voltage.DEPLOY);
+        hingeMotor.setVoltage(Constants.Voltage.HINGE);
     }
 
     /**
      * Puts up the intake
      */
     public void retract() {
-        deployMotor.setVoltage(Constants.Voltage.DEPLOY);
+        hingeMotor.setVoltage(-Constants.Voltage.HINGE);
     }
 
     public void stopDeploy() {
-        deployMotor.setVoltage(0);
+        hingeMotor.setVoltage(0);
     }
 
     /**
      * Sucks in a note
      */
     public void intake() {
-        intakeMotor.setVoltage(Constants.Voltage.INTAKE);
+        intakeMotor.setVoltage(-Constants.Voltage.INTAKE);
     }
 
     /**
      * Spits out a note
      */
     public void eject() {
-        intakeMotor.setVoltage(-Constants.Voltage.INTAKE);
+        intakeMotor.setVoltage(Constants.Voltage.INTAKE);
     }
 
     public void stopIntake() {

@@ -37,8 +37,8 @@ public class ShooterSub extends SubsystemBase {
      * Revving flywheel in
      */
     public void in() {
-        leftMotor.setVoltage(-0.1 * Constants.Speed.SHOOTER);
-        rightMotor.setVoltage(-0.1 * Constants.Speed.SHOOTER);
+        leftMotor.setVoltage(-0.4 * Constants.Speed.SHOOTER);
+        rightMotor.setVoltage(-0.4 * Constants.Speed.SHOOTER);
     }
 
     /**
@@ -57,10 +57,10 @@ public class ShooterSub extends SubsystemBase {
         rightMotor.setVoltage(0);
     }
     public void feederIn() {
-        feederMotor.setVoltage(-Constants.Speed.FEEDER);
+        feederMotor.setVoltage(Constants.Speed.FEEDER);
     }
     public void feederOut() {
-        feederMotor.setVoltage(Constants.Speed.FEEDER);
+        feederMotor.setVoltage(-Constants.Speed.FEEDER);
     }
     public void stopFeeder() {
         feederMotor.setVoltage(0);

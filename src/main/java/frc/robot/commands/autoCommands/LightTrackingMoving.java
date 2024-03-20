@@ -50,7 +50,7 @@ public class LightTrackingMoving extends Command {
             final double ySpeed = x * (1.0 / 40);
             final double rotationSpeed = x * (1.0 / 40);
             if (area < dist) {
-                driveSub.mecanumDrive(forwardSpeed, 0, rotationSpeed);
+                driveSub.mecanumDrive(forwardSpeed, 0, ySpeed);
             } else if (area >= dist) {
                 driveSub.mecanumDrive(backwardSpeed, 0, ySpeed);
             }

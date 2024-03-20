@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.commands.autoCommands.ShootAndRun;
+import frc.robot.commands.autoCommands.ShootAndRunCenter;
 import frc.robot.commands.teleop.TeleopDriveCartesian;
 import frc.robot.commands.teleop.climb.ClimbDown;
 import frc.robot.commands.teleop.climb.ClimbStop;
@@ -144,6 +144,6 @@ public class RobotContainer {
      * @return the command to run in autonomous
      */
     public Command getAutonomousCommand() {
-        return new ShootAndRun(shooterSub, driveSub);
+        return new ShootAndRunCenter(shooterSub, driveSub);
     }
 }
