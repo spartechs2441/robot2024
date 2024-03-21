@@ -16,6 +16,11 @@ import frc.robot.commands.teleop.TeleopDriveCartesian;
 import frc.robot.commands.teleop.climb.ClimbDown;
 import frc.robot.commands.teleop.climb.ClimbStop;
 import frc.robot.commands.teleop.climb.ClimbUp;
+import frc.robot.commands.teleop.climb.leftClimb.ClimbDownLeft;
+import frc.robot.commands.teleop.climb.leftClimb.ClimbStopLeft;
+import frc.robot.commands.teleop.climb.leftClimb.ClimbUpLeft;
+import frc.robot.commands.teleop.climb.rightClimb.ClimbStopRight;
+import frc.robot.commands.teleop.climb.rightClimb.ClimbUpRight;
 import frc.robot.commands.teleop.feeder.FeederInward;
 import frc.robot.commands.teleop.feeder.FeederOutward;
 import frc.robot.commands.teleop.feeder.FeederStop;
@@ -43,8 +48,8 @@ public class RobotContainer {
     private final IntakeSub intakeSub;
     private final ShooterSub shooterSub;
     private final ClimbSub climbSub;
-    //    Joystick flightStickControl = new Joystick(1);
-    Joystick flightStickDrive = new Joystick(Constants.Port.MAIN_JOYSTICK);
+    Joystick leftFlightStick = new Joystick(Constants.Port.SECONDARY_JOYSTICK);
+    Joystick rightFlightStick = new Joystick(Constants.Port.MAIN_JOYSTICK);
 
 
     /**
@@ -72,13 +77,13 @@ public class RobotContainer {
     private void configureBindings() {
         System.out.println(
                 "Joystick name: " +
-                flightStickDrive.getName()
+                rightFlightStick.getName()
         );
 
         driveSub.setDefaultCommand(
                 new TeleopDriveCartesian(
                         driveSub,
-                        flightStickDrive
+                        rightFlightStick
                 )
         );
           intakeSub.setDefaultCommand(new TeleopStopDeploy(intakeSub));
@@ -86,55 +91,71 @@ public class RobotContainer {
 
 
         //Intake
-        final JoystickButton intakeButton = new JoystickButton(flightStickDrive, Constants.Buttons.INTAKE);
+        final JoystickButton intakeButton = new JoystickButton(rightFlightStick, Constants.RightButtons.INTAKE);
         intakeButton.onTrue(new RunCommand(intakeSub::intake, intakeSub));
         intakeButton.onFalse(new RunCommand(intakeSub::stopIntake, intakeSub));
 
-        final JoystickButton ejectButton = new JoystickButton(flightStickDrive, Constants.Buttons.EJECT);
+        final JoystickButton ejectButton = new JoystickButton(rightFlightStick, Constants.RightButtons.EJECT);
         ejectButton.onTrue(new RunCommand(intakeSub::eject, intakeSub));
         ejectButton.onFalse(new RunCommand(intakeSub::stopIntake, intakeSub));
 
         //Intake Tower
-        final JoystickButton riseButton = new JoystickButton(flightStickDrive, Constants.Buttons.RISE);
+        final JoystickButton riseButton = new JoystickButton(rightFlightStick, Constants.RightButtons.RISE);
         riseButton.onTrue(new RunCommand(intakeSub::intakeTowerRise, intakeSub));
         riseButton.onFalse(new RunCommand(intakeSub::intakeTowerStop, intakeSub));
 
-        final JoystickButton dropButton = new JoystickButton(flightStickDrive, Constants.Buttons.DROP);
+        final JoystickButton dropButton = new JoystickButton(rightFlightStick, Constants.RightButtons.DROP);
         dropButton.onTrue(new RunCommand(intakeSub::intakeTowerDrop, intakeSub));
         dropButton.onFalse(new RunCommand(intakeSub::intakeTowerStop, intakeSub));
 
         //Intake hinge
-        final JoystickButton deployButton = new JoystickButton(flightStickDrive, Constants.Buttons.DEPLOY);
+        final JoystickButton deployButton = new JoystickButton(rightFlightStick, Constants.RightButtons.DEPLOY);
         deployButton.onTrue(new TeleopDeploy(intakeSub));
         deployButton.onFalse(new TeleopStopDeploy(intakeSub));
 
-        final JoystickButton retractButton = new JoystickButton(flightStickDrive, Constants.Buttons.RETRACT);
+        final JoystickButton retractButton = new JoystickButton(rightFlightStick, Constants.RightButtons.RETRACT);
         retractButton.onTrue(new TeleopRetract(intakeSub));
         retractButton.onFalse(new TeleopStopDeploy(intakeSub));
 
-        final JoystickButton feederInButton = new JoystickButton(flightStickDrive, Constants.Buttons.FEEDER_IN);
+        final JoystickButton feederInButton = new JoystickButton(rightFlightStick, Constants.RightButtons.FEEDER_IN);
         feederInButton.onTrue(new FeederInward(shooterSub));
         feederInButton.onFalse(new FeederStop(shooterSub));
 
-        final JoystickButton feederOutButton = new JoystickButton(flightStickDrive, Constants.Buttons.FEEDER_OUT);
+        final JoystickButton feederOutButton = new JoystickButton(rightFlightStick, Constants.RightButtons.FEEDER_OUT);
         feederOutButton.onTrue(new FeederOutward(shooterSub));
         feederOutButton.onFalse(new FeederStop(shooterSub));
 
-        final JoystickButton shootButton = new JoystickButton(flightStickDrive, Constants.Buttons.SPIT);
+        final JoystickButton shootButton = new JoystickButton(rightFlightStick, Constants.RightButtons.SPIT);
         shootButton.onTrue(new FlywheelsOutward(shooterSub));
         shootButton.onFalse(new FlywheelsStop(shooterSub));
 
-        final JoystickButton eatButton = new JoystickButton(flightStickDrive, Constants.Buttons.SLURP);
+        final JoystickButton eatButton = new JoystickButton(rightFlightStick, Constants.RightButtons.SLURP);
         eatButton.onTrue(new FlywheelsInward(shooterSub));
         eatButton.onFalse(new FlywheelsStop(shooterSub));
 
-        final JoystickButton climbUpButton = new JoystickButton(flightStickDrive, Constants.Buttons.UPPIES);
+        final JoystickButton climbUpButton = new JoystickButton(rightFlightStick, Constants.RightButtons.UPPIES);
         climbUpButton.onTrue(new ClimbUp(climbSub));
         climbUpButton.onFalse(new ClimbStop(climbSub));
 
-        final JoystickButton climbDownButton = new JoystickButton(flightStickDrive, Constants.Buttons.DOWNS);
+        final JoystickButton climbDownButton = new JoystickButton(rightFlightStick, Constants.RightButtons.DOWNS);
         climbDownButton.onTrue(new ClimbDown(climbSub));
         climbDownButton.onFalse(new ClimbStop(climbSub));
+
+        final JoystickButton leftClimbDownButt = new JoystickButton(leftFlightStick, Constants.LeftButtons.LEFT_DOWNS);
+        leftClimbDownButt.onTrue(new ClimbDownLeft(climbSub));
+        leftClimbDownButt.onFalse(new ClimbStopLeft(climbSub));
+
+        final JoystickButton leftClimbUpButt = new JoystickButton(leftFlightStick, Constants.LeftButtons.LEFT_UPPIES);
+        leftClimbUpButt.onTrue(new ClimbUpLeft(climbSub));
+        leftClimbUpButt.onFalse(new ClimbStopLeft(climbSub));
+
+        final JoystickButton rightClimbDownButt = new JoystickButton(leftFlightStick, Constants.LeftButtons.RIGHT_DOWNS);
+        rightClimbDownButt.onTrue(new ClimbUpRight(climbSub));
+        rightClimbDownButt.onFalse(new ClimbStopRight(climbSub));
+
+        final JoystickButton rightClimbUpButt = new JoystickButton(leftFlightStick, Constants.LeftButtons.RIGHT_UPPIES);
+        rightClimbUpButt.onTrue(new ClimbUpRight(climbSub));
+        rightClimbUpButt.onFalse(new ClimbStopRight(climbSub));
     }
 
 

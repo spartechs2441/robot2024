@@ -19,6 +19,7 @@ public final class Constants {
      */
     public static class Port {
         public static final int MAIN_JOYSTICK = 0;
+        public static final int SECONDARY_JOYSTICK = 1;
         public static final int BACK_LEFT_DRIVE = 5;
         public static final int FRONT_LEFT_DRIVE = 4;
         public static final int FRONT_RIGHT_DRIVE = 1;
@@ -59,7 +60,7 @@ public final class Constants {
         public static final double INTAKE_TOWER = 8;
     }
 
-    public static class Buttons {
+    public static class RightButtons {
         /**
          * Button for sucking a note in
          */
@@ -108,5 +109,24 @@ public final class Constants {
          * Button for Lowering the Climb
          */
         public static final int DOWNS = 4;
+
+    }
+    public static class LeftButtons {
+        /**
+         * Button for Raising the Left Climb
+         */
+        public static final int LEFT_UPPIES = 3;
+        /**
+         * Button for Lowering the Left Climb
+         */
+        public static final int LEFT_DOWNS = 5;
+        /**
+         * Button for Raising the Right Climb
+         */
+        public static final int RIGHT_UPPIES = 4;
+        /**
+         * Button for Lowering the Right Climb
+         */
+        public static final int RIGHT_DOWNS = 6;
     }
 }
