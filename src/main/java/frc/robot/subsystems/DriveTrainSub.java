@@ -127,6 +127,9 @@ public class DriveTrainSub extends SubsystemBase {
     public double getSpeed() {
         return speed;
     }
+    public void stopDrive() {
+        mecanumDrive.driveCartesian(0, 0, 0);
+    }
 
     public void setSpeed(double speed) {
         this.speed = speed;
