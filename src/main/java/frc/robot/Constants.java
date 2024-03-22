@@ -44,9 +44,8 @@ public final class Constants {
         public static final double AUTO = .6;
         public static final double TELEOP = 1;
         public static final double TELEOP_ROTATION = 1;
-        public static final double SHOOTER = 11;
+        public static final double SHOOTER = 10;
         public static final double FEEDER = 3;
-        public static final double CONVEYOR = 1.5;
         public static final double CLIMB = 6;
    }
 
@@ -85,48 +84,45 @@ public final class Constants {
          * Button for Dropping the intake tower
          */
         public static final int DROP = 10;
-        /**
-         * Button for Spinning the Flywheels Outwards
-         */
-        public static final int SPIT = 5;
-        /**
-         * Button for Spinning the Flywheels Inwards
-         */
-        public static final int SLURP = 3;
-        /**
-         * Button for Spinning the Feeder Wheels Inwards
-         */
-        public static final int FEEDER_IN = 2;
-        /**
-         * Button for Spinning the Feeder Wheels Outwards
-         */
-        public static final int FEEDER_OUT = 1;
-        /**
-         * Button for Raising the Climb
-         */
-        public static final int UPPIES = 6;
-        /**
-         * Button for Lowering the Climb
-         */
-        public static final int DOWNS = 4;
 
     }
     public static class LeftButtons {
         /**
          * Button for Raising the Left Climb
          */
-        public static final int LEFT_UPPIES = 3;
+        public static final int LEFT_UPPIES = 10;
         /**
          * Button for Lowering the Left Climb
          */
-        public static final int LEFT_DOWNS = 5;
+        public static final int LEFT_DOWNS = 9;
         /**
          * Button for Raising the Right Climb
          */
-        public static final int RIGHT_UPPIES = 4;
+        public static final int RIGHT_UPPIES = 12;
         /**
          * Button for Lowering the Right Climb
          */
-        public static final int RIGHT_DOWNS = 6;
+        public static final int RIGHT_DOWNS = 11;
+        /**
+         * Button for Raising the Climb
+         */
+        public static final int UPPIES = 8;
+        /**
+         * Button for Lowering the Climb
+         */
+        public static final int DOWNS = 7;
+        /**
+         * Button for Spinning the Flywheels and Feeder Inwards
+         */
+        public static final int FEEDER_IN = 3;
+        public static final int SLURP = 5;
+        /**
+         * Button for Spinning the Flywheels Outwards
+         */
+        public static final int SPIT = 2;
+        /**
+         * Button for Spinning the Feeder Wheels Outwards
+         */
+        public static final int FEEDER_OUT = 1;
     }
 }

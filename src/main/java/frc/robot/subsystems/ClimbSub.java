@@ -34,8 +34,8 @@ public class ClimbSub extends SubsystemBase {
     }
 
     public void climbUp() {
-        leftMotor.setVoltage(Constants.Speed.CLIMB);
-        rightMotor.setVoltage(Constants.Speed.CLIMB);
+        leftMotor.setVoltage(-Constants.Speed.CLIMB);
+        rightMotor.setVoltage(-Constants.Speed.CLIMB);
     }
 
     public void climbUpRight() {
@@ -47,8 +47,8 @@ public class ClimbSub extends SubsystemBase {
     }
 
     public void climbDown() {
-        leftMotor.setVoltage(-Constants.Speed.CONVEYOR);
-        rightMotor.setVoltage(-Constants.Speed.CONVEYOR);
+        leftMotor.setVoltage(Constants.Speed.CLIMB);
+        rightMotor.setVoltage(Constants.Speed.CLIMB);
     }
 
     public void climbDownRight(){

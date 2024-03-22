@@ -44,6 +44,9 @@ public class LightTrackingMoving extends Command {
         boolean isTargeting = tv.getInteger(0) == 1;
         double tagId = id.getDouble(0.0);
         double[] botpose = tyaw.getDoubleArray(new double[] {});
+        double area = ta.getDouble(0.0);
+        double x = tx.getDouble(0.0);
+        double y = ty.getDouble(0.0);
 
         // check if something's here and checks if that something is the right id then move toward it
         // 5 & 6 are the ids for the AMP
@@ -64,7 +67,18 @@ public class LightTrackingMoving extends Command {
         } else {
             driveSub.stopDrive();
         }
+
+        final double dist = 1f;
+        final double backwardSpeed = (1 - Math.cbrt(area));
+        final double forwardSpeed = (Math.sqrt(3) - Math.sqrt(area)) / 2;
+        final double sidewaysSpeed = x * (1.0 / 40);
+        if (area < dist || yaw > 10) {
+            driveSub.mecanumDrive(-forwardSpeed, sidewaysSpeed, rotationSpeed);
+        } else if (area >= dist || yaw < -10) {
+            driveSub.mecanumDrive(-backwardSpeed, sidewaysSpeed, rotationSpeed);
+        }
     }
+
 
     //only goes once at end when command is finishing
     @Override

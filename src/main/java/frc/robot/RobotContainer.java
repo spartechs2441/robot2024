@@ -19,6 +19,7 @@ import frc.robot.commands.teleop.climb.ClimbUp;
 import frc.robot.commands.teleop.climb.leftClimb.ClimbDownLeft;
 import frc.robot.commands.teleop.climb.leftClimb.ClimbStopLeft;
 import frc.robot.commands.teleop.climb.leftClimb.ClimbUpLeft;
+import frc.robot.commands.teleop.climb.rightClimb.ClimbDownRight;
 import frc.robot.commands.teleop.climb.rightClimb.ClimbStopRight;
 import frc.robot.commands.teleop.climb.rightClimb.ClimbUpRight;
 import frc.robot.commands.teleop.feeder.FeederInward;
@@ -117,27 +118,27 @@ public class RobotContainer {
         retractButton.onTrue(new TeleopRetract(intakeSub));
         retractButton.onFalse(new TeleopStopDeploy(intakeSub));
 
-        final JoystickButton feederInButton = new JoystickButton(rightFlightStick, Constants.RightButtons.FEEDER_IN);
-        feederInButton.onTrue(new FeederInward(shooterSub));
-        feederInButton.onFalse(new FeederStop(shooterSub));
+        final JoystickButton feederIn = new JoystickButton(leftFlightStick, Constants.LeftButtons.FEEDER_IN);
+        feederIn.onTrue(new FeederInward(shooterSub));
+        feederIn.onFalse(new FeederStop(shooterSub));
 
-        final JoystickButton feederOutButton = new JoystickButton(rightFlightStick, Constants.RightButtons.FEEDER_OUT);
+        final JoystickButton feederOutButton = new JoystickButton(leftFlightStick, Constants.LeftButtons.FEEDER_OUT);
         feederOutButton.onTrue(new FeederOutward(shooterSub));
         feederOutButton.onFalse(new FeederStop(shooterSub));
 
-        final JoystickButton shootButton = new JoystickButton(rightFlightStick, Constants.RightButtons.SPIT);
+        final JoystickButton shooterIn = new JoystickButton(leftFlightStick, Constants.LeftButtons.SLURP);
+        shooterIn.onTrue(new FlywheelsInward(shooterSub));
+        shooterIn.onFalse(new FlywheelsStop(shooterSub));
+
+        final JoystickButton shootButton = new JoystickButton(leftFlightStick, Constants.LeftButtons.SPIT);
         shootButton.onTrue(new FlywheelsOutward(shooterSub));
         shootButton.onFalse(new FlywheelsStop(shooterSub));
 
-        final JoystickButton eatButton = new JoystickButton(rightFlightStick, Constants.RightButtons.SLURP);
-        eatButton.onTrue(new FlywheelsInward(shooterSub));
-        eatButton.onFalse(new FlywheelsStop(shooterSub));
-
-        final JoystickButton climbUpButton = new JoystickButton(rightFlightStick, Constants.RightButtons.UPPIES);
+        final JoystickButton climbUpButton = new JoystickButton(leftFlightStick, Constants.LeftButtons.UPPIES);
         climbUpButton.onTrue(new ClimbUp(climbSub));
         climbUpButton.onFalse(new ClimbStop(climbSub));
 
-        final JoystickButton climbDownButton = new JoystickButton(rightFlightStick, Constants.RightButtons.DOWNS);
+        final JoystickButton climbDownButton = new JoystickButton(leftFlightStick, Constants.LeftButtons.DOWNS);
         climbDownButton.onTrue(new ClimbDown(climbSub));
         climbDownButton.onFalse(new ClimbStop(climbSub));
 
@@ -150,7 +151,7 @@ public class RobotContainer {
         leftClimbUpButt.onFalse(new ClimbStopLeft(climbSub));
 
         final JoystickButton rightClimbDownButt = new JoystickButton(leftFlightStick, Constants.LeftButtons.RIGHT_DOWNS);
-        rightClimbDownButt.onTrue(new ClimbUpRight(climbSub));
+        rightClimbDownButt.onTrue(new ClimbDownRight(climbSub));
         rightClimbDownButt.onFalse(new ClimbStopRight(climbSub));
 
         final JoystickButton rightClimbUpButt = new JoystickButton(leftFlightStick, Constants.LeftButtons.RIGHT_UPPIES);
