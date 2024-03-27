@@ -9,7 +9,6 @@ public class ShooterSub extends SubsystemBase {
     private final RelativeEncoder shooterEncoder;
     private final CANSparkMax leftMotor;
     private final CANSparkMax rightMotor;
-    private final CANSparkMax feederMotor;
 
 
     public ShooterSub() {
@@ -18,8 +17,6 @@ public class ShooterSub extends SubsystemBase {
         rightMotor.setInverted(true);
         leftMotor.setInverted(false);
         shooterEncoder = rightMotor.getEncoder(SparkRelativeEncoder.Type.kHallSensor, 42);
-
-        feederMotor = new CANSparkMax(Constants.Port.FEEDER, CANSparkLowLevel.MotorType.kBrushless);
 
         this.resetEncoders();
     }
@@ -55,14 +52,5 @@ public class ShooterSub extends SubsystemBase {
     public void stopShoot() {
         leftMotor.setVoltage(0);
         rightMotor.setVoltage(0);
-    }
-    public void feederIn() {
-        feederMotor.setVoltage(Constants.Speed.FEEDER);
-    }
-    public void feederOut() {
-        feederMotor.setVoltage(-Constants.Speed.FEEDER);
-    }
-    public void stopFeeder() {
-        feederMotor.setVoltage(0);
     }
 }

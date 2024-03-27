@@ -1,19 +1,19 @@
 package frc.robot.commands.teleop.feeder;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.ShooterSub;
+import frc.robot.subsystems.FeederSub;
 
 public class FeederInward extends Command {
-    private final ShooterSub shooter;
+    private final FeederSub feeder;
 
-    public FeederInward(ShooterSub subsystem) {
-        shooter = subsystem;
-        addRequirements(shooter);
+    public FeederInward(FeederSub subsystem) {
+        feeder = subsystem;
+        addRequirements(feeder);
     }
 
     @Override
     public void execute() {
-        shooter.feederIn();
+        feeder.feederIn();
     }
 }
 

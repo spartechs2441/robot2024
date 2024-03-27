@@ -31,10 +31,7 @@ import frc.robot.commands.teleop.flywheel.FlywheelsStop;
 import frc.robot.commands.teleop.intake.TeleopDeploy;
 import frc.robot.commands.teleop.intake.TeleopRetract;
 import frc.robot.commands.teleop.intake.TeleopStopDeploy;
-import frc.robot.subsystems.ClimbSub;
-import frc.robot.subsystems.DriveTrainSub;
-import frc.robot.subsystems.IntakeSub;
-import frc.robot.subsystems.ShooterSub;
+import frc.robot.subsystems.*;
 
 
 /**
@@ -46,8 +43,11 @@ import frc.robot.subsystems.ShooterSub;
 public class RobotContainer {
     // The robot's subsystems and commands are defined here...
     private final DriveTrainSub driveSub;
+    private final IntakeHingeSub hingeSub;
+    private final IntakeTowerSub towerSub;
     private final IntakeSub intakeSub;
     private final ShooterSub shooterSub;
+    private final FeederSub feederSub;
     private final ClimbSub climbSub;
     Joystick leftFlightStick = new Joystick(Constants.Port.SECONDARY_JOYSTICK);
     Joystick rightFlightStick = new Joystick(Constants.Port.MAIN_JOYSTICK);
@@ -60,8 +60,11 @@ public class RobotContainer {
 
         climbSub = new ClimbSub();
         driveSub = new DriveTrainSub();
+        towerSub = new IntakeTowerSub();
+        hingeSub = new IntakeHingeSub();
         intakeSub = new IntakeSub();
         shooterSub = new ShooterSub();
+        feederSub = new FeederSub();
         configureBindings();
     }
 
@@ -87,7 +90,6 @@ public class RobotContainer {
                         rightFlightStick
                 )
         );
-          intakeSub.setDefaultCommand(new TeleopStopDeploy(intakeSub));
 
 
 
@@ -102,29 +104,29 @@ public class RobotContainer {
 
         //Intake Tower
         final JoystickButton riseButton = new JoystickButton(rightFlightStick, Constants.RightButtons.RISE);
-        riseButton.onTrue(new RunCommand(intakeSub::intakeTowerRise, intakeSub));
-        riseButton.onFalse(new RunCommand(intakeSub::intakeTowerStop, intakeSub));
+        riseButton.onTrue(new RunCommand(towerSub::intakeTowerRise, intakeSub));
+        riseButton.onFalse(new RunCommand(towerSub::intakeTowerStop, intakeSub));
 
         final JoystickButton dropButton = new JoystickButton(rightFlightStick, Constants.RightButtons.DROP);
-        dropButton.onTrue(new RunCommand(intakeSub::intakeTowerDrop, intakeSub));
-        dropButton.onFalse(new RunCommand(intakeSub::intakeTowerStop, intakeSub));
+        dropButton.onTrue(new RunCommand(towerSub::intakeTowerDrop, intakeSub));
+        dropButton.onFalse(new RunCommand(towerSub::intakeTowerStop, intakeSub));
 
         //Intake hinge
         final JoystickButton deployButton = new JoystickButton(rightFlightStick, Constants.RightButtons.DEPLOY);
-        deployButton.onTrue(new TeleopDeploy(intakeSub));
-        deployButton.onFalse(new TeleopStopDeploy(intakeSub));
+        deployButton.onTrue(new TeleopDeploy(hingeSub));
+        deployButton.onFalse(new TeleopStopDeploy(hingeSub));
 
         final JoystickButton retractButton = new JoystickButton(rightFlightStick, Constants.RightButtons.RETRACT);
-        retractButton.onTrue(new TeleopRetract(intakeSub));
-        retractButton.onFalse(new TeleopStopDeploy(intakeSub));
+        retractButton.onTrue(new TeleopRetract(hingeSub));
+        retractButton.onFalse(new TeleopStopDeploy(hingeSub));
 
         final JoystickButton feederIn = new JoystickButton(leftFlightStick, Constants.LeftButtons.FEEDER_IN);
-        feederIn.onTrue(new FeederInward(shooterSub));
-        feederIn.onFalse(new FeederStop(shooterSub));
+        feederIn.onTrue(new FeederInward(feederSub));
+        feederIn.onFalse(new FeederStop(feederSub));
 
         final JoystickButton feederOutButton = new JoystickButton(leftFlightStick, Constants.LeftButtons.FEEDER_OUT);
-        feederOutButton.onTrue(new FeederOutward(shooterSub));
-        feederOutButton.onFalse(new FeederStop(shooterSub));
+        feederOutButton.onTrue(new FeederOutward(feederSub));
+        feederOutButton.onFalse(new FeederStop(feederSub));
 
         final JoystickButton shooterIn = new JoystickButton(leftFlightStick, Constants.LeftButtons.SLURP);
         shooterIn.onTrue(new FlywheelsInward(shooterSub));

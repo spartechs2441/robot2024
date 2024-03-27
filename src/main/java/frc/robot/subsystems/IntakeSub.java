@@ -11,32 +11,9 @@ import frc.robot.Constants;
 public class IntakeSub extends SubsystemBase {
 
     private final CANSparkMax intakeMotor;
-    private final CANSparkMax hingeMotor;
-    private final CANSparkMax intakeTowerMotor;
 
     public IntakeSub() {
         intakeMotor = new CANSparkMax(Constants.Port.INTAKE, CANSparkLowLevel.MotorType.kBrushless);
-        hingeMotor = new CANSparkMax(Constants.Port.INTAKE_HINGE, CANSparkLowLevel.MotorType.kBrushless);
-        intakeTowerMotor = new CANSparkMax(Constants.Port.INTAKE_TOWER, CANSparkLowLevel.MotorType.kBrushless);
-        intakeTowerMotor.setInverted(true);
-    }
-
-    /**
-     * Deploys the intake
-     */
-    public void deploy() {
-        hingeMotor.setVoltage(Constants.Voltage.HINGE);
-    }
-
-    /**
-     * Puts up the intake
-     */
-    public void retract() {
-        hingeMotor.setVoltage(-Constants.Voltage.HINGE);
-    }
-
-    public void stopDeploy() {
-        hingeMotor.setVoltage(0);
     }
 
     /**
@@ -55,17 +32,5 @@ public class IntakeSub extends SubsystemBase {
 
     public void stopIntake() {
         intakeMotor.setVoltage(0);
-    }
-
-    public void intakeTowerRise() {
-        intakeTowerMotor.setVoltage(Constants.Voltage.INTAKE_TOWER);
-    }
-
-    public void intakeTowerDrop() {
-        intakeTowerMotor.setVoltage(-Constants.Voltage.INTAKE_TOWER);
-    }
-
-    public void intakeTowerStop() {
-        intakeTowerMotor.setVoltage(0);
     }
 }
