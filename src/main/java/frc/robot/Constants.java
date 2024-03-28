@@ -84,6 +84,10 @@ public final class Constants {
          * Button for Dropping the intake tower
          */
         public static final int DROP = 10;
+        /**
+         * Button for moving robot about the Amp
+         */
+        public static final int LIMELIGHT = 3;
 
     }
     public static class LeftButtons {

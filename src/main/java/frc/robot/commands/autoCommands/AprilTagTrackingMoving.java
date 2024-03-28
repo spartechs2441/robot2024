@@ -8,7 +8,9 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.DriveTrainSub;
 
-public class LightTrackingMoving extends Command {
+import java.util.Arrays;
+
+public class AprilTagTrackingMoving extends Command {
     NetworkTable light;
     private NetworkTableEntry tx;
     private NetworkTableEntry ty;
@@ -17,9 +19,10 @@ public class LightTrackingMoving extends Command {
     private NetworkTableEntry id;
     private NetworkTableEntry tyaw;
     private DriveTrainSub driveSub;
-    private Rotation2d test;
+    private boolean done;
 
-    public LightTrackingMoving(DriveTrainSub subsystem) {
+
+    public AprilTagTrackingMoving(DriveTrainSub subsystem) {
         // Refer to https://docs.limelightvision.io/docs/docs-limelight/apis/complete-networktables-api
         light = NetworkTableInstance.getDefault().getTable("limelight");
         ta = light.getEntry("ta"); //area of reflective object
@@ -28,9 +31,10 @@ public class LightTrackingMoving extends Command {
         tv = light.getEntry("tv"); //0 or 1 depending on if there is a reflective object
         id = light.getEntry("tid");
         // TODO REPLACE THIS
-        tyaw = light.getEntry("botpose");
+        tyaw = light.getEntry("targetpose_robotspace");
         driveSub = subsystem;
         addRequirements(driveSub);
+        done = false;
     }
 
     // only goes once at beginning when command is called
@@ -50,32 +54,34 @@ public class LightTrackingMoving extends Command {
 
         // check if something's here and checks if that something is the right id then move toward it
         // 5 & 6 are the ids for the AMP
-        if (isTargeting && 5 != tagId && 6 != tagId) {
+        if (!isTargeting || (5 != tagId && 6 != tagId)) {
             driveSub.stopDrive();
-            return;
+            done = true;
         }
 
         // throw new Exception("If you do not know why this is here, READ MY DANG COMMIT -Alex");
-        double yaw = botpose[2];
-
+        double yaw = botpose[4];
         // 45 is a completely arbitrary number
         final double rotationSpeed = Math.min(yaw / 45, 1.0);
-        if (yaw > 10) {
-            driveSub.mecanumDrive(0, 0, rotationSpeed);
-        } else if (yaw < -10) {
+        if (yaw > 5) {
             driveSub.mecanumDrive(0, 0, -rotationSpeed);
-        } else {
-            driveSub.stopDrive();
+        } else if (yaw < -5) {
+            driveSub.mecanumDrive(0, 0, rotationSpeed);
         }
 
-        final double dist = 1f;
+        final double dist = 0.5f;
         final double backwardSpeed = (1 - Math.cbrt(area));
         final double forwardSpeed = (Math.sqrt(3) - Math.sqrt(area)) / 2;
         final double sidewaysSpeed = x * (1.0 / 40);
-        if (area < dist || yaw > 10) {
-            driveSub.mecanumDrive(-forwardSpeed, sidewaysSpeed, rotationSpeed);
-        } else if (area >= dist || yaw < -10) {
-            driveSub.mecanumDrive(-backwardSpeed, sidewaysSpeed, rotationSpeed);
+        if (yaw > -5 && yaw < 5){
+            if (area < dist) {
+                driveSub.mecanumDrive(-forwardSpeed, sidewaysSpeed, 0);
+            } else if (area > dist) {
+                driveSub.mecanumDrive(-backwardSpeed, sidewaysSpeed, 0);
+            }
+            else{
+                done = true;
+            }
         }
     }
 
@@ -89,6 +95,6 @@ public class LightTrackingMoving extends Command {
     //condition for the command to end on its own
     @Override
     public boolean isFinished() {
-        return false;
+        return done;
     }
 }

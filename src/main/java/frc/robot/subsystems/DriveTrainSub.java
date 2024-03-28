@@ -39,16 +39,16 @@ public class DriveTrainSub extends SubsystemBase {
 
         //initializing encoders
         frontRightEncoder = frontRight.getEncoder(SparkRelativeEncoder.Type.kHallSensor, 42);
-        frontRightEncoder.setPositionConversionFactor(1 / 1.7846595 / 3.78947369 / 1.0212766); //1.0169  HAVE TO REDO THIS
+        frontRightEncoder.setPositionConversionFactor(1 / 10.0 / Math.PI * 5/ 1.037); //1.0169  HAVE TO REDO THIS
 
         backRightEncoder = backRight.getEncoder(SparkRelativeEncoder.Type.kHallSensor, 42);
-        backRightEncoder.setPositionConversionFactor(1 / 1.8252 / 3.78947369 / 1.0212766); //1.04   HAVE TO REDO THIS
+        backRightEncoder.setPositionConversionFactor(1 / 10.0 / Math.PI * 5/ 1.037); //1.04   HAVE TO REDO THIS
 
         frontLeftEncoder = frontLeft.getEncoder(SparkRelativeEncoder.Type.kHallSensor, 42);
-        frontLeftEncoder.setPositionConversionFactor(1 / 1.755 / 3.78947369 / 1.0212766); //1   HAVE TO REDO THIS
+        frontLeftEncoder.setPositionConversionFactor(1 / 10.0 / Math.PI * 5/ 1.037); //1   HAVE TO REDO THIS
 
         backLeftEncoder = backLeft.getEncoder(SparkRelativeEncoder.Type.kHallSensor, 42);
-        backLeftEncoder.setPositionConversionFactor(1 / 1.70235 / 3.78947369 / 1.0212766); //.97   HAVE TO REDO THIS
+        backLeftEncoder.setPositionConversionFactor(1 / 10.0 / Math.PI * 5/ 1.037); //.97   HAVE TO REDO THIS
 
         //initializing the mecanum drive
         mecanumDrive = new MecanumDrive(frontLeft, backLeft, frontRight, backRight);
@@ -74,10 +74,10 @@ public class DriveTrainSub extends SubsystemBase {
     public double getDistance() {
         return Math.abs(
                 (
-                        backRightEncoder.getPosition() +
-                                backLeftEncoder.getPosition() +
-                                frontRightEncoder.getPosition() +
-                                frontLeftEncoder.getPosition()
+                        Math.abs(backRightEncoder.getPosition()) +
+                                Math.abs(backLeftEncoder.getPosition()) +
+                                Math.abs(frontRightEncoder.getPosition()) +
+                                Math.abs(frontLeftEncoder.getPosition())
                 ) / 4
         );
     }
@@ -93,14 +93,22 @@ public class DriveTrainSub extends SubsystemBase {
     public void autoDrive(final CustomaryLength length, final StrafeDirection strafeDirection) {
         final double feet = length.get(CustomaryLengthUnit.FEET);
         double brake;
+        System.out.println("----------------------------------------" + "FEET: " + feet + "---------------------------------------");
+        System.out.println("----------------------------------------" + "DISTANCE: " + getDistance() + "-------------------------------");
+        System.out.println("FL DRIVE ENCODER: " + frontLeftEncoder.getPosition());
 
         while (getDistance() < feet) {
-            brake = 1 - getDistance() / feet;
+            brake = 0.35; //1 - getDistance() / feet
+//            System.out.println("FL DRIVE ENCODER: " + frontLeftEncoder.getPosition());
+//            System.out.println("FR DRIVE ENCODER: " + frontRightEncoder.getPosition());
+//            System.out.println("BR DRIVE ENCODER: " + backRightEncoder.getPosition());
+//            System.out.println("BL DRIVE ENCODER: " + backLeftEncoder.getPosition());
+//            System.out.println("------------------------------------------------------------------------");
             switch (strafeDirection) {
-                case FORWARD -> mecanumDrive.driveCartesian(this.speed * brake, 0, 0);
+                case FORWARD -> mecanumDrive.driveCartesian(-this.speed * brake, 0, 0);
                 case LEFT -> mecanumDrive.driveCartesian(0, this.speed * brake, 0);
                 case RIGHT -> mecanumDrive.driveCartesian(0, -this.speed * brake, 0);
-                case BACKWARDS -> mecanumDrive.driveCartesian(-this.speed * brake, 0, 0);
+                case BACKWARDS -> mecanumDrive.driveCartesian(this.speed * brake, 0, 0);
             }
         }
     }
@@ -113,10 +121,10 @@ public class DriveTrainSub extends SubsystemBase {
      * @see MecanumDrive#driveCartesian(double, double, double)
      */
     public void mecanumDrive(double xSpeed, double ySpeed, double zRotation) {
-        double m = 1;
-        double a = ((.2-Math.exp(m))/(Math.exp(m)-1));
-        double k = Math.log((1+a)/a);
-        xSpeed = a*(Math.exp(k*(xSpeed*this.speed))-1); //might be an exponential change
+        double m = .2;
+        double a = ((.2 - Math.exp(m)) / (Math.exp(m) - 1));
+        double k = Math.log((1 + a) / a);
+        xSpeed = a * (Math.exp(k * (xSpeed * this.speed)) - 1); //might be an exponential change
 //        xSpeed *= this.speed;
         ySpeed *= -this.speed;
         zRotation = -MathUtil.applyDeadband(zRotation * this.turningSpeed, 0.2);
@@ -127,6 +135,7 @@ public class DriveTrainSub extends SubsystemBase {
     public double getSpeed() {
         return speed;
     }
+
     public void stopDrive() {
         mecanumDrive.driveCartesian(0, 0, 0);
     }

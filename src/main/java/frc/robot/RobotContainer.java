@@ -11,7 +11,9 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.commands.autoCommands.AprilTagTrackingMoving;
 import frc.robot.commands.autoCommands.ShootAndRunCenter;
+import frc.robot.commands.autoCommands.StopCommands;
 import frc.robot.commands.teleop.TeleopDriveCartesian;
 import frc.robot.commands.teleop.climb.ClimbDown;
 import frc.robot.commands.teleop.climb.ClimbStop;
@@ -159,6 +161,10 @@ public class RobotContainer {
         final JoystickButton rightClimbUpButt = new JoystickButton(leftFlightStick, Constants.LeftButtons.RIGHT_UPPIES);
         rightClimbUpButt.onTrue(new ClimbUpRight(climbSub));
         rightClimbUpButt.onFalse(new ClimbStopRight(climbSub));
+
+        final JoystickButton limelightMoving = new JoystickButton(rightFlightStick, Constants.RightButtons.LIMELIGHT);
+        limelightMoving.onTrue(new AprilTagTrackingMoving(driveSub));
+        limelightMoving.onFalse(new StopCommands());
     }
 
 
@@ -168,6 +174,7 @@ public class RobotContainer {
      * @return the command to run in autonomous
      */
     public Command getAutonomousCommand() {
-        return new ShootAndRunCenter(shooterSub, driveSub);
+        return new ShootAndRunCenter(shooterSub, feederSub, driveSub);
+//        return new JustRun(driveSub);
     }
 }

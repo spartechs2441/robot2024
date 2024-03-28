@@ -1,14 +1,15 @@
 package frc.robot.commands.autoCommands.hinge;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.IntakeHingeSub;
 import frc.robot.subsystems.IntakeSub;
 
 public class AutoHingeRetract extends Command {
-    private final IntakeSub hinge;
+    private final IntakeHingeSub hinge;
     private final double duration;
     private double startTime;
 
-    public AutoHingeRetract(IntakeSub subsystem) {
+    public AutoHingeRetract(IntakeHingeSub subsystem) {
         hinge = subsystem;
         addRequirements(hinge);
         duration = 900; //Will change

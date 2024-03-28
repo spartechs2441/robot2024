@@ -2,13 +2,14 @@ package frc.robot.commands.autoCommands.tower;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.IntakeSub;
+import frc.robot.subsystems.IntakeTowerSub;
 
 public class AutoTowerRise extends Command {
-    private final IntakeSub tower;
+    private final IntakeTowerSub tower;
     private final double duration;
     private double startTime;
 
-    public AutoTowerRise(IntakeSub subsystem) {
+    public AutoTowerRise(IntakeTowerSub subsystem) {
         tower = subsystem;
         addRequirements(tower);
         duration = 900; //Will change

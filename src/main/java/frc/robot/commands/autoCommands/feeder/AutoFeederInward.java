@@ -1,14 +1,15 @@
 package frc.robot.commands.autoCommands.feeder;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.FeederSub;
 import frc.robot.subsystems.ShooterSub;
 
 public class AutoFeederInward extends Command {
-    private final ShooterSub feeder;
+    private final FeederSub feeder;
     private final double duration;
     private double startTime;
 
-    public AutoFeederInward(ShooterSub subsystem) {
+    public AutoFeederInward(FeederSub subsystem) {
         feeder = subsystem;
         addRequirements(feeder);
         duration = 900; //Will change
