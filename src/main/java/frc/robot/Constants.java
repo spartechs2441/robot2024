@@ -43,7 +43,7 @@ public final class Constants {
     public static class Speed {
         public static final double AUTO = .6;
         public static final double TELEOP = 1;
-        public static final double TELEOP_ROTATION = 1;
+        public static final double TELEOP_ROTATION = .5;
         public static final double SHOOTER = 10;
         public static final double FEEDER = 3;
         public static final double CLIMB = 6;

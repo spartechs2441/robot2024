@@ -34,12 +34,12 @@ public class AprilTagTrackingMoving extends Command {
         tyaw = light.getEntry("targetpose_robotspace");
         driveSub = subsystem;
         addRequirements(driveSub);
-        done = false;
     }
 
     // only goes once at beginning when command is called
     @Override
     public void initialize() {
+        done = false;
     }
 
     // keeps repeating until the command ends
@@ -47,7 +47,7 @@ public class AprilTagTrackingMoving extends Command {
     public void execute() {
         boolean isTargeting = tv.getInteger(0) == 1;
         double tagId = id.getDouble(0.0);
-        double[] botpose = tyaw.getDoubleArray(new double[] {});
+        double[] botpose = tyaw.getDoubleArray(new double[]{});
         double area = ta.getDouble(0.0);
         double x = tx.getDouble(0.0);
         double y = ty.getDouble(0.0);
@@ -59,28 +59,29 @@ public class AprilTagTrackingMoving extends Command {
             done = true;
         }
 
-        // throw new Exception("If you do not know why this is here, READ MY DANG COMMIT -Alex");
+
         double yaw = botpose[4];
         // 45 is a completely arbitrary number
-        final double rotationSpeed = Math.min(yaw / 45, 1.0);
-        if (yaw > 5) {
-            driveSub.mecanumDrive(0, 0, -rotationSpeed);
-        } else if (yaw < -5) {
+        final double rotationSpeed = Math.min(Math.abs(yaw) / 30, .3);
+        System.out.println("rotationSpeed: " + rotationSpeed + "-----------------------------------");
+        if (yaw > 3) {
             driveSub.mecanumDrive(0, 0, rotationSpeed);
+        } else if (yaw < -3) {
+            driveSub.mecanumDrive(0, 0, -rotationSpeed);
         }
 
-        final double dist = 0.5f;
+        final double dist = 1.7f;
         final double backwardSpeed = (1 - Math.cbrt(area));
-        final double forwardSpeed = (Math.sqrt(3) - Math.sqrt(area)) / 2;
-        final double sidewaysSpeed = x * (1.0 / 40);
-        if (yaw > -5 && yaw < 5){
-            if (area < dist) {
+        final double forwardSpeed = Math.min((dist + .1) - area, 0.35);
+        final double sidewaysSpeed = x * (1.0 / 20);
+        if (yaw > -3 && yaw < 3) {
+            if (area < dist-.2) {
                 driveSub.mecanumDrive(-forwardSpeed, sidewaysSpeed, 0);
-            } else if (area > dist) {
+            } else if (area > dist+.2) {
                 driveSub.mecanumDrive(-backwardSpeed, sidewaysSpeed, 0);
             }
             else{
-                done = true;
+                driveSub.mecanumDrive(0, sidewaysSpeed, 0);
             }
         }
     }
