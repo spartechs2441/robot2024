@@ -27,7 +27,7 @@ public class AutoShoot extends Command {
     @Override
     public void execute() {
         shooter.out();
-        if ((System.currentTimeMillis()-startTime) >= 1000){
+        if ((System.currentTimeMillis()-startTime) >= 1500){
             feeder.feederOut();
         }
 

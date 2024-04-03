@@ -20,7 +20,7 @@ public class ClimbSub extends SubsystemBase {
 
         rightMotor = new CANSparkMax(Constants.Port.RIGHT_CLIMB, CANSparkLowLevel.MotorType.kBrushless);
         rightMotorEncoder = rightMotor.getEncoder(SparkRelativeEncoder.Type.kHallSensor, 42);
-        rightMotor.setInverted(false);
+        rightMotor.setInverted(true);
 
         //Resetting position
         resetEncoders();
@@ -34,8 +34,8 @@ public class ClimbSub extends SubsystemBase {
     }
 
     public void climbUp() {
-        leftMotor.setVoltage(-Constants.Speed.CLIMB);
-        rightMotor.setVoltage(-Constants.Speed.CLIMB);
+        leftMotor.setVoltage(Constants.Speed.CLIMB);
+        rightMotor.setVoltage(Constants.Speed.CLIMB);
     }
 
     public void climbUpRight() {
@@ -47,8 +47,8 @@ public class ClimbSub extends SubsystemBase {
     }
 
     public void climbDown() {
-        leftMotor.setVoltage(Constants.Speed.CLIMB);
-        rightMotor.setVoltage(Constants.Speed.CLIMB);
+        leftMotor.setVoltage(-Constants.Speed.CLIMB);
+        rightMotor.setVoltage(-Constants.Speed.CLIMB);
     }
 
     public void climbDownRight(){
