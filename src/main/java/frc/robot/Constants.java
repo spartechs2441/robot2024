@@ -44,9 +44,10 @@ public final class Constants {
         public static final double AUTO = .6;
         public static final double TELEOP = 1;
         public static final double TELEOP_ROTATION = .5;
-        public static final double SHOOTER = 10;
-        public static final double FEEDER = 3;
-        public static final double CLIMB = 6;
+        public static final double SHOOTER = 11;
+        public static final double FEEDER = 4;
+        public static final double CLIMB = 10;
+
    }
 
     /**
@@ -57,6 +58,7 @@ public final class Constants {
         public static final double HINGE = 3;
         public static final double INTAKE = 4;
         public static final double INTAKE_TOWER = 8;
+
     }
 
     public static class RightButtons {

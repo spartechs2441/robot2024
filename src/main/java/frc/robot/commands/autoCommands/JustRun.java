@@ -16,7 +16,7 @@ import frc.robot.utils.StrafeDirection;
 public final class JustRun extends SequentialCommandGroup {
     public JustRun(DriveTrainSub driveTrainSub) {
         addCommands(
-                new AutoDrive(driveTrainSub, new CustomaryLength(7, CustomaryLengthUnit.FEET), StrafeDirection.FORWARD)
+                new AutoDrive(driveTrainSub, new CustomaryLength(10, CustomaryLengthUnit.FEET), StrafeDirection.FORWARD)
         );
 
     }

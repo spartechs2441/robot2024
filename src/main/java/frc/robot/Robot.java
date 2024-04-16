@@ -5,7 +5,12 @@
 
 package frc.robot;
 
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.UsbCamera;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
@@ -30,6 +35,11 @@ public class Robot extends TimedRobot {
         // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
         // autonomous chooser on the dashboard.
         robotContainer = new RobotContainer();
+//        NetworkTable limeLight = NetworkTableInstance.getDefault().getTable("limelight");
+//        limeLight.getEntry("camMode").setInteger(1);
+//        Shuffleboard.getTab("Robot").addCamera("limelight", "limeLight", "http://10.24.41.54:5800/stream.mjpg");
+//        UsbCamera cam = new UsbCamera("camera", 1);
+//        CameraServer.startAutomaticCapture();
     }
 
 

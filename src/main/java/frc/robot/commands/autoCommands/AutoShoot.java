@@ -14,7 +14,7 @@ public class AutoShoot extends Command {
         shooter = subsystem;
         this.feeder = feeder;
         addRequirements(shooter);
-        duration = 2000; //Will change
+        duration = 3000; //Will change
     }
 
     // only goes once at beginning when command is called
@@ -27,7 +27,7 @@ public class AutoShoot extends Command {
     @Override
     public void execute() {
         shooter.out();
-        if ((System.currentTimeMillis()-startTime) >= 1500){
+        if ((System.currentTimeMillis()-startTime) >= 2000){
             feeder.feederOut();
         }
 

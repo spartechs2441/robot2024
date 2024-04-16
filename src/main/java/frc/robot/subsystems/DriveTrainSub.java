@@ -93,17 +93,9 @@ public class DriveTrainSub extends SubsystemBase {
     public void autoDrive(final CustomaryLength length, final StrafeDirection strafeDirection) {
         final double feet = length.get(CustomaryLengthUnit.FEET);
         double brake;
-        System.out.println("----------------------------------------" + "FEET: " + feet + "---------------------------------------");
-        System.out.println("----------------------------------------" + "DISTANCE: " + getDistance() + "-------------------------------");
-        System.out.println("FL DRIVE ENCODER: " + frontLeftEncoder.getPosition());
 
         while (getDistance() < feet) {
             brake = 0.35; //1 - getDistance() / feet
-//            System.out.println("FL DRIVE ENCODER: " + frontLeftEncoder.getPosition());
-//            System.out.println("FR DRIVE ENCODER: " + frontRightEncoder.getPosition());
-//            System.out.println("BR DRIVE ENCODER: " + backRightEncoder.getPosition());
-//            System.out.println("BL DRIVE ENCODER: " + backLeftEncoder.getPosition());
-//            System.out.println("------------------------------------------------------------------------");
             switch (strafeDirection) {
                 case FORWARD -> mecanumDrive.driveCartesian(-this.speed * brake, 0, 0);
                 case LEFT -> mecanumDrive.driveCartesian(0, this.speed * brake, 0);
